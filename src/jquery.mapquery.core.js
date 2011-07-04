@@ -25,9 +25,26 @@
   
 ## Overview 
 
-### `$('mapselector').mapQuery([options])`
+### `.mapQuery(options)`
 
-**Description**: attach mapQuery to a DOM element 
+**Description**: initialise MapQuery and associate it with the matched element 
+ 
+`.mapQuery(options)` version added: 0.1    
+**options**  an object of key-value pairs with options for the map.
+
+returns: jQuery 
+
+We can initialise MapQuery without any options, or for instance pass in a layers object. 
+The mapQuery function returns a jQuery object, to access the mapQuery object retrieve
+the 'mapQuery' data object.
+
+> var map = $('#map').mapQuery();    
+> var map = $('#map').mapQuery({layers:[{type:'osm'}]);     
+>
+> var mq = map.data('mapQuery');    
+
+
+
  */
 (function ($) {
 $.MapQuery = $.MapQuery || {};
@@ -104,11 +121,20 @@ $.MapQuery.Map = function(element, options) {
 $.MapQuery.Map.prototype = {
  /**
  
-###*map*.`layers([options])`
+###*map*.`layers(options)`
 
 **Description**: get/set the layers of the map
 
-      
+`.layers(options)` version added 0.1     
+**options** an object of key-value pairs with options to create one or more layers
+ 
+returns: [layers]
+
+The `.layers()` method allows us to attach layers to a mapQuery object. We can also 
+use it to retrieve all layers currently attached to the map
+
+> var osm = map.layers({type:'osm'});    
+> var layers = map.layers();
       
      */
     layers: function(options) {
@@ -175,9 +201,25 @@ $.MapQuery.Map.prototype = {
     //This WILL NOT work without a baseLayer or allOverlays == true
     // vmx 20110609 Still true?
 /**
- ###*map*.`goto([options])`
+ ###*map*.`goto(options)`
  
- **Description**: get/set the extent, zoom and position of the map
+**Description**: get/set the extent, zoom and position of the map
+
+`.goto({position: [x:y], zoom: z<int>, box: [llx,lly,urx,ury]})` version added 0.1    
+**position** the position as [x,y] in displayProjection (default EPSG:4326) to center the map at     
+**zoom** the zoomlevel as integer to zoom the map to    
+**box** an array with the lower left x, lower left y, upper right x, upper right y to zoom the map to, 
+this will take precedent when conflicting with any of the above values     
+
+returns {position: [x:y], zoom: z<int>, box: [llx,lly,urx,ury]}
+
+The `.goto()` method allows us to move to map to a specific zoom level, specific position or a specific extent. 
+We can also retrieve the current zoomlevel, position and extent from the map. 
+
+> map.goto({zoom:4});    
+> map.goto({position:[5,52]});    
+> map.goto(box:[-180,-90,180,90]);
+
  */    
     goto: function (options) {
         var position;
@@ -323,9 +365,14 @@ $.extend($.MapQuery.Layer, {
  */    
     types: {
 /**
-* bing
+#### bing
  
  **Description**: create a Bing-maps layer
+  
+`{type:bing,key:BINGKEY}` version added 0.1    
+**key** the Bing Maps API key for your application. Get you own at http://bingmapsportal.com/     
+**view** Bing-maps layer (road, hybrid, satellite) default road    
+ 
  */        
         bing: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -345,12 +392,15 @@ $.extend($.MapQuery.Layer, {
                 options: o
             };
         },
-        //Not sure this one is worth pursuing works with ecwp:// & jpip:// urls
-        //See ../lib/NCSOpenLayersECWP.js
+
 /**
-* ecwp
+#### ecwp
 
 **Description**: create an ecwp layer
+
+`{type:ecwp,url:URL}` version added 0.1    
+**url** the url to the ECWP data    
+ 
  */  
         ecwp: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -363,9 +413,13 @@ $.extend($.MapQuery.Layer, {
         },
 /**
 
-* google
+#### google
 
 **Description**: create a Google-maps layer
+
+`{type:google}` version added 0.1    
+**view** Google-maps layer (road, hybrid, satellite) default road    
+ 
  */          
         google: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -389,9 +443,12 @@ $.extend($.MapQuery.Layer, {
         },
 /**
 
-* vector
+#### vector
 
 **Description**: create a vector layer
+ 
+`{type:vector}` version added 0.1    
+ 
  */          
         vector: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -405,10 +462,13 @@ $.extend($.MapQuery.Layer, {
         },
 /**
 
-* json
+#### json
 
 **Description**: create a JSON layer
 
+`{type:json}` version added 0.1    
+**strategies** The OpenLayers update strategy to be used (bbox, cluster, filter, fixed, paging, refresh, save) default fixed    
+ 
  */          
         json: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -448,9 +508,12 @@ $.extend($.MapQuery.Layer, {
         },
 /**
 
-* osm
+#### osm
 
 **Description**: create an OpenStreetMap layer
+ 
+`{type:osm}` version added 0.1    
+ 
  */         
         osm: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -463,9 +526,14 @@ $.extend($.MapQuery.Layer, {
         },
 /**
 
-* wms
+#### wms
 
 **Description**: create a WMS layer
+ 
+`{type:wms,layer:WMSLAYER,url:WMSURL}` version added 0.1    
+**layer** the layer(s) of the WMS to be displayed      
+**url** the url to the WMS service    
+ 
  */  
         wms: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -484,9 +552,13 @@ $.extend($.MapQuery.Layer, {
         },
 /**
 
-* wmts
+#### wmts
 
 **Description**: create a WMTS layer
+
+`{type:wmts,url:WMTSURL}` version added 0.1    
+**url** the url to the WMTS service
+ 
  */          
         wmts: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
@@ -542,6 +614,16 @@ $.MapQuery.Layer.prototype = {
 
 **Description**: move the layer down in the layer stack of the map
 
+`.down(delta)` version added 0.1    
+**delta** the amount of layers the layer has to move down in the layer stack
+ 
+returns layer (MapQuery.Layer)
+
+The `.down(delta)` method is a shortcut method for `.position(pos)` which makes
+it easier to move a layer down in the layerstack relative to its current position
+
+> layer.down(3);
+
  */      
     down: function(delta) {
         delta = delta || 1;
@@ -559,6 +641,14 @@ $.MapQuery.Layer.prototype = {
 
 **Description**: remove the layer from the map
 
+`.remove()` version added 0.1
+
+returns layer.id (string)
+
+The `.remove()` method allows us to remove a layer from the map. It returns an id to
+make it allow for widgets to remove their references to the destroyed layer.
+
+> var id = layer.remove();
  */      
     remove: function() {
         this.map.olMap.removeLayer(this.olLayer);
@@ -568,9 +658,20 @@ $.MapQuery.Layer.prototype = {
     },
 /**
 
-###*layer*.`position([position])`
+###*layer*.`position(position)`
 
 **Description**: get/set the `position` of the layer in the layer stack of the map
+
+`.position(position)` version added 0.1
+**position** an integer setting the new position of the layer in the layer stack 
+
+returns position (integer)
+
+`.position())` method allows us to change the position of the layer in the layer stack. 
+It will take into account the hidden baselayer that is used by OpenLayers.
+
+> var pos =  layer.position();    
+> layer.position(pos);
 
  */      
     position: function(pos) {
@@ -587,6 +688,17 @@ $.MapQuery.Layer.prototype = {
 
 **Description**: move the layer up in the layer stack of the map
 
+`.up(delta)` version added 0.1    
+**delta** the amount of layers the layer has to move up in the layer stack
+ 
+returns layer (MapQuery.Layer)
+
+The `.up(delta)` method is a shortcut method for `.position(pos)` which makes
+it easier to move a layer up in the layerstack relative to its current position
+
+> layer.up(3);
+
+
  */      
     up: function(delta) {
         delta = delta || 1;
@@ -595,9 +707,21 @@ $.MapQuery.Layer.prototype = {
     },
 /**
 
-###*layer*.`visible([visible])`
+###*layer*.`visible(visible)`
 
 **Description**: get/set the visibility of the layer
+
+`.visible(visible)` version added 0.1
+**visible** a boolean setting the visibility of the layer 
+
+returns visible (boolean)
+
+`.visible()` method allows us to change the visibility of the layer. 
+Also we can get the current visibility of the layer.
+
+
+> var vis =  layer.visible();    
+> layer.visible(vis);
 
  */      
     visible: function(vis) {
@@ -611,10 +735,21 @@ $.MapQuery.Layer.prototype = {
     },
     /**
 
-###*layer*.`opacity([opactiy])`
+###*layer*.`opacity(opactiy)`
 
 **Description**: get/set the opacity of the layer
 
+`.opacity(opacity)` version added 0.1
+**opacity** an float [0-1] setting the opacity of the layer 
+
+returns opacity (float)
+
+`.opacity()` method allows us to change the opacity of the layer. 
+Also we can get the current opacity of the layer.
+
+
+> var opac =  layer.opacity();    
+> layer.opacity(opac);
  */      
     opacity: function(opac) {
          if (opac===undefined) {
