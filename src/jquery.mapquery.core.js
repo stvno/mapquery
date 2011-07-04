@@ -38,10 +38,10 @@ We can initialise MapQuery without any options, or for instance pass in a layers
 The mapQuery function returns a jQuery object, to access the mapQuery object retrieve
 the 'mapQuery' data object.
 
-> var map = $('#map').mapQuery();    
-> var map = $('#map').mapQuery({layers:[{type:'osm'}]);     
->
-> var mq = map.data('mapQuery');    
+    var map = $('#map').mapQuery();    
+    var map = $('#map').mapQuery({layers:[{type:'osm'}]);     
+    
+    var mq = map.data('mapQuery');    
 
 
 
@@ -133,8 +133,8 @@ returns: [layers]
 The `.layers()` method allows us to attach layers to a mapQuery object. We can also 
 use it to retrieve all layers currently attached to the map
 
-> var osm = map.layers({type:'osm'});    
-> var layers = map.layers();
+    var osm = map.layers({type:'osm'});    
+    var layers = map.layers();
       
      */
     layers: function(options) {
@@ -216,9 +216,9 @@ returns {position: [x:y], zoom: z<int>, box: [llx,lly,urx,ury]}
 The `.goto()` method allows us to move to map to a specific zoom level, specific position or a specific extent. 
 We can also retrieve the current zoomlevel, position and extent from the map. 
 
-> map.goto({zoom:4});    
-> map.goto({position:[5,52]});    
-> map.goto(box:[-180,-90,180,90]);
+    map.goto({zoom:4});    
+    map.goto({position:[5,52]});    
+    map.goto(box:[-180,-90,180,90]);
 
  */    
     goto: function (options) {
@@ -622,7 +622,7 @@ returns layer (MapQuery.Layer)
 The `.down(delta)` method is a shortcut method for `.position(pos)` which makes
 it easier to move a layer down in the layerstack relative to its current position
 
-> layer.down(3);
+    layer.down(3);
 
  */      
     down: function(delta) {
@@ -648,7 +648,7 @@ returns layer.id (string)
 The `.remove()` method allows us to remove a layer from the map. It returns an id to
 make it allow for widgets to remove their references to the destroyed layer.
 
-> var id = layer.remove();
+    var id = layer.remove();
  */      
     remove: function() {
         this.map.olMap.removeLayer(this.olLayer);
@@ -670,8 +670,8 @@ returns position (integer)
 `.position())` method allows us to change the position of the layer in the layer stack. 
 It will take into account the hidden baselayer that is used by OpenLayers.
 
-> var pos =  layer.position();    
-> layer.position(pos);
+    var pos =  layer.position();    
+    layer.position(pos);
 
  */      
     position: function(pos) {
@@ -696,7 +696,7 @@ returns layer (MapQuery.Layer)
 The `.up(delta)` method is a shortcut method for `.position(pos)` which makes
 it easier to move a layer up in the layerstack relative to its current position
 
-> layer.up(3);
+    layer.up(3);
 
 
  */      
@@ -720,8 +720,8 @@ returns visible (boolean)
 Also we can get the current visibility of the layer.
 
 
-> var vis =  layer.visible();    
-> layer.visible(vis);
+    var vis =  layer.visible();    
+    layer.visible(vis);
 
  */      
     visible: function(vis) {
@@ -748,8 +748,8 @@ returns opacity (float)
 Also we can get the current opacity of the layer.
 
 
-> var opac =  layer.opacity();    
-> layer.opacity(opac);
+    var opac =  layer.opacity();    
+    layer.opacity(opac);
  */      
     opacity: function(opac) {
          if (opac===undefined) {
