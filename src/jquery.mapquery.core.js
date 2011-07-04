@@ -1,9 +1,47 @@
+/*
+ * Copyright (C) 2011 by Anne Blankert, Steven Ottens, Volker Missche
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/**
+# MapQuery.Core
+  
+## Overview 
+
+### `$('mapselector').mapQuery([options])`
+
+**Description**: attach mapQuery to a DOM element 
+ */
 (function ($) {
 $.MapQuery = $.MapQuery || {};
+/**
 
+---
+
+##MapQuery.Map
+
+
+ */
 $.MapQuery.Map = function(element, options) {
     var self = this;
-    //If there are a maxExtent and a projection other than Spherical Mercator automagically set maxResolution if it is not set
+    //If there are a maxExtent and a projection automagically set maxResolution if it is not set
     // TODO smo 20110614: put maxExtent and maxResolution setting in the proper option building routine
     if(options){
     if(!options.maxResolution&&options.maxExtent&&options.projection){
@@ -29,7 +67,7 @@ $.MapQuery.Map = function(element, options) {
     // create the OpenLayers Map
     this.olMap = new OpenLayers.Map(this.element[0], this.olMapOptions);
     
-    //OpenLayers doesn't want to return a maxExtent when there is no baselayer set (eg on an empty map, so we create a fake baselayer
+    //OpenLayers doesn't want to return a maxExtent when there is no baselayer set -eg on an empty map, so we create a fake baselayer
     this.olMap.addLayer(new OpenLayers.Layer('fake', {baseLayer: true}));    
 
     // Keep IDs of vector layer for select feature control
@@ -64,6 +102,15 @@ $.MapQuery.Map = function(element, options) {
 };
 
 $.MapQuery.Map.prototype = {
+ /**
+ 
+###*map*.`layers([options])`
+
+**Description**: get/set the layers of the map
+
+      
+      
+     */
     layers: function(options) {
         //var o = $.extend({}, options);
         var self = this;
@@ -127,6 +174,11 @@ $.MapQuery.Map.prototype = {
     },
     //This WILL NOT work without a baseLayer or allOverlays == true
     // vmx 20110609 Still true?
+/**
+ ###*map*.`goto([options])`
+ 
+ **Description**: get/set the extent, zoom and position of the map
+ */    
     goto: function (options) {
         var position;
 
@@ -217,7 +269,14 @@ $.MapQuery.Map.prototype = {
         this.element.removeData('mapQuery');
     }
 };
+/**
 
+---
+
+##MapQuery.Layer
+ 
+
+ */
 $.MapQuery.Layer = function(map, id, options) {
     var self = this;
     // apply default options that are not specific to a layer
@@ -257,7 +316,17 @@ $.MapQuery.Layer = function(map, id, options) {
 };
 
 $.extend($.MapQuery.Layer, {
+/**
+
+###types
+
+ */    
     types: {
+/**
+* bing
+ 
+ **Description**: create a Bing-maps layer
+ */        
         bing: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                 $.fn.mapQuery.defaults.layer.bing,
@@ -278,6 +347,11 @@ $.extend($.MapQuery.Layer, {
         },
         //Not sure this one is worth pursuing works with ecwp:// & jpip:// urls
         //See ../lib/NCSOpenLayersECWP.js
+/**
+* ecwp
+
+**Description**: create an ecwp layer
+ */  
         ecwp: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                     $.fn.mapQuery.defaults.layer.raster,
@@ -287,6 +361,12 @@ $.extend($.MapQuery.Layer, {
                 options: o
             };
         },
+/**
+
+* google
+
+**Description**: create a Google-maps layer
+ */          
         google: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                     $.fn.mapQuery.defaults.layer.google,
@@ -307,6 +387,12 @@ $.extend($.MapQuery.Layer, {
                 options: o
             };
         },
+/**
+
+* vector
+
+**Description**: create a vector layer
+ */          
         vector: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                     $.fn.mapQuery.defaults.layer.vector,
@@ -317,6 +403,13 @@ $.extend($.MapQuery.Layer, {
                 options: o
             };
         },
+/**
+
+* json
+
+**Description**: create a JSON layer
+
+ */          
         json: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                     $.fn.mapQuery.defaults.layer.vector,
@@ -353,6 +446,12 @@ $.extend($.MapQuery.Layer, {
                 options: o
             };
         },
+/**
+
+* osm
+
+**Description**: create an OpenStreetMap layer
+ */         
         osm: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                 $.fn.mapQuery.defaults.layer.osm,
@@ -362,6 +461,12 @@ $.extend($.MapQuery.Layer, {
                 options: o
             };
         },
+/**
+
+* wms
+
+**Description**: create a WMS layer
+ */  
         wms: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                     $.fn.mapQuery.defaults.layer.raster,
@@ -377,6 +482,12 @@ $.extend($.MapQuery.Layer, {
                 options: o
             };
         },
+/**
+
+* wmts
+
+**Description**: create a WMTS layer
+ */          
         wmts: function(options) {
             var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
                     $.fn.mapQuery.defaults.layer.wmts);
@@ -425,6 +536,13 @@ $.extend($.MapQuery.Layer, {
 });
 
 $.MapQuery.Layer.prototype = {
+/**
+
+###*layer*.`down(delta)`
+
+**Description**: move the layer down in the layer stack of the map
+
+ */      
     down: function(delta) {
         delta = delta || 1;
         this.map.olMap.raiseLayer(this.olLayer, -delta);
@@ -435,12 +553,26 @@ $.MapQuery.Layer.prototype = {
     // convenience.
     each: function () {},
     // will return the map object
+/**
+
+###*layer*.`remove()`
+
+**Description**: remove the layer from the map
+
+ */      
     remove: function() {
         this.map.olMap.removeLayer(this.olLayer);
         // remove references to this layer that are stored in the
         // map object
         return this.map._removeLayer(this.id);
     },
+/**
+
+###*layer*.`position([position])`
+
+**Description**: get/set the `position` of the layer in the layer stack of the map
+
+ */      
     position: function(pos) {
         if (pos===undefined) {
             return this.map.olMap.getLayerIndex(this.olLayer)-1;
@@ -449,11 +581,25 @@ $.MapQuery.Layer.prototype = {
             return this.map.olMap.setLayerIndex(this.olLayer, pos+1);
         }
     },
+/**
+
+###*layer*.`up(delta)`
+
+**Description**: move the layer up in the layer stack of the map
+
+ */      
     up: function(delta) {
         delta = delta || 1;
         this.map.olMap.raiseLayer(this.olLayer, delta);
         return this;
     },
+/**
+
+###*layer*.`visible([visible])`
+
+**Description**: get/set the visibility of the layer
+
+ */      
     visible: function(vis) {
         if (vis===undefined) {
             return this.olLayer.getVisibility();
@@ -463,6 +609,13 @@ $.MapQuery.Layer.prototype = {
             return this;
         }
     },
+    /**
+
+###*layer*.`opacity([opactiy])`
+
+**Description**: get/set the opacity of the layer
+
+ */      
     opacity: function(opac) {
          if (opac===undefined) {
             // this.olLayer.opacity can be null if never set so return the visibility
@@ -493,6 +646,13 @@ $.fn.mapQuery = function(options) {
     });
 };
 
+
+/**
+
+###mapquery.defaults
+
+
+ */      
 // default options for the map and layers
 $.fn.mapQuery.defaults = {
     // The controls for the map are per instance, therefore it need to
