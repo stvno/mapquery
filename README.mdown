@@ -25,8 +25,7 @@ If you want to create a new widget for MapQuery, here are some notes:
 
 > (function($) {    
 > $.widget("mapQuery.mqLayerControl", {    
->  _create: ...    
-> }    
+>    _create: ...        
 > });    
 > })(jQuery);    
 
