@@ -355,6 +355,191 @@ $.MapQuery.Layer = function(map, id, options) {
     this.map.olMap.addLayer(this.olLayer);
 };
 
+
+
+$.MapQuery.Layer.prototype = {
+/**
+
+###*layer*.`down(delta)`
+
+**Description**: move the layer down in the layer stack of the map
+
+`.down(delta)` version added 0.1    
+**delta** the amount of layers the layer has to move down in the layer stack  
+ 
+returns layer (MapQuery.Layer)  
+
+The `.down(delta)` method is a shortcut method for `.position(pos)` which makes
+it easier to move a layer down in the layerstack relative to its current position
+
+     layer.down(3);
+
+ */      
+    down: function(delta) {
+        delta = delta || 1;
+        this.map.olMap.raiseLayer(this.olLayer, -delta);
+        return this;
+    },
+    // NOTE vmx: this would be pretty cool, but it's not easily possible
+    // you could use $.each($.geojq.layer())) instead, this is for pure
+    // convenience.
+    each: function () {},
+    // will return the map object
+/**
+
+###*layer*.`remove()`
+
+**Description**: remove the layer from the map
+
+`.remove()` version added 0.1  
+
+returns layer.id (string)  
+
+The `.remove()` method allows us to remove a layer from the map. It returns an id to
+make it allow for widgets to remove their references to the destroyed layer.
+
+     var id = layer.remove();
+
+ */      
+    remove: function() {
+        this.map.olMap.removeLayer(this.olLayer);
+        // remove references to this layer that are stored in the
+        // map object
+        return this.map._removeLayer(this.id);
+    },
+/**
+
+###*layer*.`position(position)`
+
+**Description**: get/set the `position` of the layer in the layer stack of the map
+
+`.position(position)` version added 0.1
+**position** an integer setting the new position of the layer in the layer stack  
+
+returns position (integer)  
+
+`.position())` method allows us to change the position of the layer in the layer stack. 
+It will take into account the hidden baselayer that is used by OpenLayers.
+
+     var pos =  layer.position();
+     layer.position(pos);
+
+ */      
+    position: function(pos) {
+        if (pos===undefined) {
+            return this.map.olMap.getLayerIndex(this.olLayer)-1;
+        }
+        else {
+            return this.map.olMap.setLayerIndex(this.olLayer, pos+1);
+        }
+    },
+/**
+
+###*layer*.`up(delta)`
+
+**Description**: move the layer up in the layer stack of the map
+
+`.up(delta)` version added 0.1    
+**delta** the amount of layers the layer has to move up in the layer stack  
+ 
+returns layer (MapQuery.Layer)  
+
+The `.up(delta)` method is a shortcut method for `.position(pos)` which makes
+it easier to move a layer up in the layerstack relative to its current position
+
+     layer.up(3);
+
+
+ */      
+    up: function(delta) {
+        delta = delta || 1;
+        this.map.olMap.raiseLayer(this.olLayer, delta);
+        return this;
+    },
+/**
+
+###*layer*.`visible(visible)`
+
+**Description**: get/set the visibility of the layer
+
+`.visible(visible)` version added 0.1
+**visible** a boolean setting the visibility of the layer   
+
+returns visible (boolean)  
+   
+`.visible()` method allows us to change the visibility of the layer. 
+Also we can get the current visibility of the layer.
+
+
+     var vis =  layer.visible();
+     layer.visible(vis);
+
+
+ */      
+    visible: function(vis) {
+        if (vis===undefined) {
+            return this.olLayer.getVisibility();
+        }
+        else {
+            this.olLayer.setVisibility(vis);
+            return this;
+        }
+    },
+    /**
+
+###*layer*.`opacity(opactiy)`
+
+**Description**: get/set the opacity of the layer
+
+`.opacity(opacity)` version added 0.1
+**opacity** an float [0-1] setting the opacity of the layer   
+
+returns opacity (float)  
+
+`.opacity()` method allows us to change the opacity of the layer. 
+Also we can get the current opacity of the layer.
+
+
+     var opac =  layer.opacity();
+     layer.opacity(opac);
+    
+ */      
+    opacity: function(opac) {
+         if (opac===undefined) {
+            // this.olLayer.opacity can be null if never set so return the visibility
+            var value;
+            this.olLayer.opacity ? value= this.olLayer.opacity : value = this.olLayer.getVisibility();
+            return value;
+        }
+        else {
+            this.olLayer.setOpacity(opac);
+            return this;
+        }
+    },
+    // every event gets the layer passed in
+    bind: function() {
+        this.events.bind.apply(this.events, arguments);
+    },
+    one: function() {
+        this.events.one.apply(this.events, arguments);
+    }
+};
+
+$.fn.mapQuery = function(options) {
+    return this.each(function() {
+        var instance = $.data(this, 'mapQuery');
+        if (!instance) {
+            $.data(this, 'mapQuery', new $.MapQuery.Map($(this), options));
+        }
+    });
+};
+
+
+/**
+
+
+
+ */    
 $.extend($.MapQuery.Layer, {
 /**
 
@@ -585,191 +770,7 @@ $.extend($.MapQuery.Layer, {
             };
         } 
     }
-});
-
-$.MapQuery.Layer.prototype = {
-/**
-
-###*layer*.`down(delta)`
-
-**Description**: move the layer down in the layer stack of the map
-
-`.down(delta)` version added 0.1    
-**delta** the amount of layers the layer has to move down in the layer stack  
- 
-returns layer (MapQuery.Layer)  
-
-The `.down(delta)` method is a shortcut method for `.position(pos)` which makes
-it easier to move a layer down in the layerstack relative to its current position
-
-     layer.down(3);
-
- */      
-    down: function(delta) {
-        delta = delta || 1;
-        this.map.olMap.raiseLayer(this.olLayer, -delta);
-        return this;
-    },
-    // NOTE vmx: this would be pretty cool, but it's not easily possible
-    // you could use $.each($.geojq.layer())) instead, this is for pure
-    // convenience.
-    each: function () {},
-    // will return the map object
-/**
-
-###*layer*.`remove()`
-
-**Description**: remove the layer from the map
-
-`.remove()` version added 0.1  
-
-returns layer.id (string)  
-
-The `.remove()` method allows us to remove a layer from the map. It returns an id to
-make it allow for widgets to remove their references to the destroyed layer.
-
-     var id = layer.remove();
-
- */      
-    remove: function() {
-        this.map.olMap.removeLayer(this.olLayer);
-        // remove references to this layer that are stored in the
-        // map object
-        return this.map._removeLayer(this.id);
-    },
-/**
-
-###*layer*.`position(position)`
-
-**Description**: get/set the `position` of the layer in the layer stack of the map
-
-`.position(position)` version added 0.1
-**position** an integer setting the new position of the layer in the layer stack  
-
-returns position (integer)  
-
-`.position())` method allows us to change the position of the layer in the layer stack. 
-It will take into account the hidden baselayer that is used by OpenLayers.
-
-     var pos =  layer.position();
-     layer.position(pos);
-
- */      
-    position: function(pos) {
-        if (pos===undefined) {
-            return this.map.olMap.getLayerIndex(this.olLayer)-1;
-        }
-        else {
-            return this.map.olMap.setLayerIndex(this.olLayer, pos+1);
-        }
-    },
-/**
-
-###*layer*.`up(delta)`
-
-**Description**: move the layer up in the layer stack of the map
-
-`.up(delta)` version added 0.1    
-**delta** the amount of layers the layer has to move up in the layer stack  
- 
-returns layer (MapQuery.Layer)  
-
-The `.up(delta)` method is a shortcut method for `.position(pos)` which makes
-it easier to move a layer up in the layerstack relative to its current position
-
-     layer.up(3);
-
-
- */      
-    up: function(delta) {
-        delta = delta || 1;
-        this.map.olMap.raiseLayer(this.olLayer, delta);
-        return this;
-    },
-/**
-
-###*layer*.`visible(visible)`
-
-**Description**: get/set the visibility of the layer
-
-`.visible(visible)` version added 0.1
-**visible** a boolean setting the visibility of the layer   
-
-returns visible (boolean)  
-   
-`.visible()` method allows us to change the visibility of the layer. 
-Also we can get the current visibility of the layer.
-
-
-     var vis =  layer.visible();
-     layer.visible(vis);
-
-
- */      
-    visible: function(vis) {
-        if (vis===undefined) {
-            return this.olLayer.getVisibility();
-        }
-        else {
-            this.olLayer.setVisibility(vis);
-            return this;
-        }
-    },
-    /**
-
-###*layer*.`opacity(opactiy)`
-
-**Description**: get/set the opacity of the layer
-
-`.opacity(opacity)` version added 0.1
-**opacity** an float [0-1] setting the opacity of the layer   
-
-returns opacity (float)  
-
-`.opacity()` method allows us to change the opacity of the layer. 
-Also we can get the current opacity of the layer.
-
-
-     var opac =  layer.opacity();
-     layer.opacity(opac);
-    
- */      
-    opacity: function(opac) {
-         if (opac===undefined) {
-            // this.olLayer.opacity can be null if never set so return the visibility
-            var value;
-            this.olLayer.opacity ? value= this.olLayer.opacity : value = this.olLayer.getVisibility();
-            return value;
-        }
-        else {
-            this.olLayer.setOpacity(opac);
-            return this;
-        }
-    },
-    // every event gets the layer passed in
-    bind: function() {
-        this.events.bind.apply(this.events, arguments);
-    },
-    one: function() {
-        this.events.one.apply(this.events, arguments);
-    }
-};
-
-$.fn.mapQuery = function(options) {
-    return this.each(function() {
-        var instance = $.data(this, 'mapQuery');
-        if (!instance) {
-            $.data(this, 'mapQuery', new $.MapQuery.Map($(this), options));
-        }
-    });
-};
-
-
-/**
-
-
-
- */      
+});  
 // default options for the map and layers
 $.fn.mapQuery.defaults = {
     // The controls for the map are per instance, therefore it need to

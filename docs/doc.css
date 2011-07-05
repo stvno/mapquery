@@ -335,7 +335,7 @@ hr:before {
 
 .links {
     display: inline-block;
-    background: #bcd2e8;
+    background: #e0eaf5;
     margin: 1.5em 20px;
     padding: 10px 1.5em;
     -webkit-border-radius: 4px;
@@ -344,6 +344,9 @@ hr:before {
     border: solid 1px #2e3436; 
 }
 
+.functionul {
+    margin: 0;
+}
 .functionul ul{
       float: left;
   width: 40em;
@@ -358,6 +361,6 @@ hr:before {
      list-style: none !important;
     float: left;
   width: 16em;
-  margin: 0;
+  margin: 2px;;
   padding: 0;
 }
