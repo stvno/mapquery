@@ -706,6 +706,7 @@ Also we can get the current visibility of the layer.
      var vis =  layer.visible();
      layer.visible(vis);
 
+
  */      
     visible: function(vis) {
         if (vis===undefined) {
