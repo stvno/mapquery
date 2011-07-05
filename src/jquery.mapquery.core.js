@@ -36,10 +36,10 @@ We can initialise MapQuery without any options, or for instance pass in a layers
 The mapQuery function returns a jQuery object, to access the mapQuery object retrieve
 the 'mapQuery' data object.
 
-    var map = $('#map').mapQuery();    
-    var map = $('#map').mapQuery({layers:[{type:'osm'}]);     
+     var map = $('#map').mapQuery();
+     var map = $('#map').mapQuery({layers:[{type:'osm'}]);
     
-    var mq = map.data('mapQuery');    
+     var mq = map.data('mapQuery');
 
 
 
