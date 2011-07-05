@@ -24,10 +24,11 @@
 # MapQuery.Core
 
 ### *$('selector')*.`mapQuery(options)`
+_version added 0.1_
 
 **Description**: initialise MapQuery and associate it with the matched element 
- 
-`.mapQuery(options)` version added: 0.1    
+
+   
 **options**  an object of key-value pairs with options for the map.  
 
 > returns: jQuery
@@ -121,10 +122,10 @@ $.MapQuery.Map.prototype = {
  /**
  
 ###*map*.`layers(options)`
+_version added 0.1_
 
 **Description**: get/set the layers of the map
 
-`.layers(options)` _version added 0.1_     
 **options** an object of key-value pairs with options to create one or more layers  
  
 >returns: [layers]  
@@ -202,10 +203,10 @@ use it to retrieve all layers currently attached to the map
     // vmx 20110609 Still true?
 /**
  ###*map*.`goto(options)`
+_version added 0.1_
  
 **Description**: get/set the extent, zoom and position of the map
-
-`.goto({position: [x:y], zoom: z<int>, box: [llx,lly,urx,ury]})` _version added 0.1_    
+    
 **position** the position as [x,y] in displayProjection (default EPSG:4326) to center the map at     
 **zoom** the zoomlevel as integer to zoom the map to    
 **box** an array with the lower left x, lower left y, upper right x, upper right y to zoom the map to, 
@@ -363,11 +364,11 @@ $.MapQuery.Layer = function(map, id, options) {
 $.MapQuery.Layer.prototype = {
 /**
 
-###*layer*.`down(delta)`
+###*layer*.`down(delta)` 
+_version added 0.1_
 
 **Description**: move the layer down in the layer stack of the map
-
-`.down(delta)` _version added 0.1_    
+     
 **delta** the amount of layers the layer has to move down in the layer stack  
  
 >returns layer (MapQuery.Layer)  
@@ -392,10 +393,9 @@ it easier to move a layer down in the layerstack relative to its current positio
 /**
 
 ###*layer*.`remove()`
+_version added 0.1_
 
 **Description**: remove the layer from the map
-
-`.remove()` _version added 0.1_  
 
 >returns layer.id (string)  
 
@@ -415,10 +415,10 @@ make it allow for widgets to remove their references to the destroyed layer.
 /**
 
 ###*layer*.`position(position)`
+_version added 0.1_
 
 **Description**: get/set the `position` of the layer in the layer stack of the map
-
-`.position(position)` _version added 0.1_
+  
 **position** an integer setting the new position of the layer in the layer stack  
 
 >returns position (integer)  
@@ -442,10 +442,10 @@ It will take into account the hidden baselayer that is used by OpenLayers.
 /**
 
 ###*layer*.`up(delta)`
+_version added 0.1_
 
 **Description**: move the layer up in the layer stack of the map
-
-`.up(delta)` _version added 0.1_    
+  
 **delta** the amount of layers the layer has to move up in the layer stack  
  
 >returns layer (MapQuery.Layer)  
@@ -466,10 +466,10 @@ it easier to move a layer up in the layerstack relative to its current position
 /**
 
 ###*layer*.`visible(visible)`
+_version added 0.1_
 
 **Description**: get/set the visibility of the layer
-
-`.visible(visible)` _version added 0.1_
+  
 **visible** a boolean setting the visibility of the layer   
 
 >returns visible (boolean)  
@@ -496,10 +496,10 @@ Also we can get the current visibility of the layer.
     /**
 
 ###*layer*.`opacity(opactiy)`
+_version added 0.1_
 
 **Description**: get/set the opacity of the layer
-
-`.opacity(opacity)` _version added 0.1_
+  
 **opacity** an float [0-1] setting the opacity of the layer   
 
 >returns opacity (float)  
@@ -552,7 +552,7 @@ $.fn.mapQuery = function(options) {
 $.extend($.MapQuery.Layer, {
 /**
 
-###types
+###*layer*.type
 
  */    
     types: {

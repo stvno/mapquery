@@ -120,8 +120,12 @@ h3 {
 h3>em {
     color: #a40000;
 }
-h3+p, h1+h3, h2+h3{
+h1+h3, h2+h3{
     margin-top: 0px;
+}
+h3+p {
+    margin-top: -30px;
+    float:right;
 }
 code {
     color: #3b5998;
