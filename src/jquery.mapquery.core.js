@@ -30,7 +30,8 @@
 `.mapQuery(options)` version added: 0.1    
 **options**  an object of key-value pairs with options for the map.  
 
-returns: jQuery  
+> returns: jQuery
+
 
 We can initialise MapQuery without any options, or for instance pass in a layers object. 
 The mapQuery function returns a jQuery object, to access the mapQuery object retrieve
@@ -126,7 +127,8 @@ $.MapQuery.Map.prototype = {
 `.layers(options)` version added 0.1     
 **options** an object of key-value pairs with options to create one or more layers  
  
-returns: [layers]  
+>returns: [layers]  
+
 
 The `.layers()` method allows us to attach layers to a mapQuery object. We can also 
 use it to retrieve all layers currently attached to the map
@@ -209,7 +211,8 @@ use it to retrieve all layers currently attached to the map
 **box** an array with the lower left x, lower left y, upper right x, upper right y to zoom the map to, 
 this will take precedent when conflicting with any of the above values      
 
-returns {position: [x:y], zoom: z<int>, box: [llx,lly,urx,ury]}  
+>returns {position: [x:y], zoom: z<int>, box: [llx,lly,urx,ury]}  
+
 
 The `.goto()` method allows us to move to map to a specific zoom level, specific position or a specific extent. 
 We can also retrieve the current zoomlevel, position and extent from the map. 
@@ -367,7 +370,8 @@ $.MapQuery.Layer.prototype = {
 `.down(delta)` version added 0.1    
 **delta** the amount of layers the layer has to move down in the layer stack  
  
-returns layer (MapQuery.Layer)  
+>returns layer (MapQuery.Layer)  
+
 
 The `.down(delta)` method is a shortcut method for `.position(pos)` which makes
 it easier to move a layer down in the layerstack relative to its current position
@@ -393,7 +397,8 @@ it easier to move a layer down in the layerstack relative to its current positio
 
 `.remove()` version added 0.1  
 
-returns layer.id (string)  
+>returns layer.id (string)  
+
 
 The `.remove()` method allows us to remove a layer from the map. It returns an id to
 make it allow for widgets to remove their references to the destroyed layer.
@@ -416,7 +421,8 @@ make it allow for widgets to remove their references to the destroyed layer.
 `.position(position)` version added 0.1
 **position** an integer setting the new position of the layer in the layer stack  
 
-returns position (integer)  
+>returns position (integer)  
+
 
 `.position())` method allows us to change the position of the layer in the layer stack. 
 It will take into account the hidden baselayer that is used by OpenLayers.
@@ -442,7 +448,8 @@ It will take into account the hidden baselayer that is used by OpenLayers.
 `.up(delta)` version added 0.1    
 **delta** the amount of layers the layer has to move up in the layer stack  
  
-returns layer (MapQuery.Layer)  
+>returns layer (MapQuery.Layer)  
+
 
 The `.up(delta)` method is a shortcut method for `.position(pos)` which makes
 it easier to move a layer up in the layerstack relative to its current position
@@ -465,7 +472,8 @@ it easier to move a layer up in the layerstack relative to its current position
 `.visible(visible)` version added 0.1
 **visible** a boolean setting the visibility of the layer   
 
-returns visible (boolean)  
+>returns visible (boolean)  
+ 
    
 `.visible()` method allows us to change the visibility of the layer. 
 Also we can get the current visibility of the layer.
@@ -494,7 +502,8 @@ Also we can get the current visibility of the layer.
 `.opacity(opacity)` version added 0.1
 **opacity** an float [0-1] setting the opacity of the layer   
 
-returns opacity (float)  
+>returns opacity (float)  
+
 
 `.opacity()` method allows us to change the opacity of the layer. 
 Also we can get the current opacity of the layer.

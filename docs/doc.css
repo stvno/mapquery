@@ -78,33 +78,11 @@ img {
 
 blockquote {
     font-style: italic;
-    color: #9e9fa3;
+    color: #a40000;
     position: relative;
     margin: 1.5em 30px;
-    padding: 10px 10px 0 10px;
-}
-blockquote:before {
-    font-style: normal;
-    content: '\201C';
-    font-size: 60px;
-    position: absolute;
-    top: -15px;
-    left: -35px;
-    color: #e5e6e7;
-}
-blockquote:after {
-    font-style: normal;
-    content: '\201E';
-    font-size: 60px;
-    position: absolute;
-    bottom: -20px;
-    right: -35px;
-    color: #e5e6e7;
 }
 
-blockquote p {
-    margin: 0 0 10px 0;
-}
 
 blockquote code {
     font-style: normal;
