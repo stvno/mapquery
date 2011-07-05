@@ -258,20 +258,8 @@ hr:before {
     display: block;
 }
 
-#functions {
-    display: block;
-    background: #f3f3f2;
-    margin: 1.5em 20px;
-    padding: 10px 1.5em;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border: solid 1px #3b5998; 
-}
-
 .functionlist {
 
-    margin:10px;
 }
 #index {
     -webkit-column-width: 170px;
@@ -343,4 +331,33 @@ hr:before {
     #index {
         display: none;
     }
+}
+
+.links {
+    display: inline-block;
+    background: #bcd2e8;
+    margin: 1.5em 20px;
+    padding: 10px 1.5em;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: solid 1px #2e3436; 
+}
+
+.functionul ul{
+      float: left;
+  width: 40em;
+  margin: 0;
+  padding: 0;
+
+}
+
+
+
+.functionli {
+     list-style: none !important;
+    float: left;
+  width: 16em;
+  margin: 0;
+  padding: 0;
 }

@@ -23,7 +23,7 @@
 /**
 # MapQuery.Core
 
-### `.mapQuery(options)`
+### *$('selector')*.`mapQuery(options)`
 
 **Description**: initialise MapQuery and associate it with the matched element 
  
