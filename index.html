@@ -13,7 +13,6 @@
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" href="css/layout.css" />
 <link rel="stylesheet" type="text/css" href="css/mapquery.css" />
-<link rel="stylesheet" type="text/css" href="css/edugis.css" />
 <link rel="stylesheet" type="text/css" href="css/egs.css" />
 <!-- css -->
 
@@ -79,189 +78,31 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
         <span id="open-east" class="ui-layout-button-close"></span>
         <div class="h-b-east">Layer management</div>
     </div>
-</div>
+</div><!-- .ui-layout-north -->
+
 <div class="ui-layout-west">
-<div id="comm-search">
-<input type="text" size=17></input>
-<input type="submit" value="Search"></input>
-</div>
-<div id="legenda">
-    <div id="nonenergy"  class="a group1">
-        <div id="nonmetallic" class="a aa group2">
-            <div id="construction" class="a aa aaa group3">
-                <div class="commodities">
-                     <!-- construction materials -->
-                    <div class="a aa aaa commodity">Chert</div>
-                    <div class="a aa aaa commodity">Clay</div>
-                    <div class="a aa aaa commodity">Crushed stone, aggregates</div>
-                    <div class="a aa aaa commodity">Industrial limestones / dolostones</div>
-                    <div class="a aa aaa commodity">Granite</div>
-                    <div class="a aa aaa commodity">Gravel</div>
-                    <div class="a aa aaa commodity">Marl</div>
-                    <div class="a aa aaa commodity">Phosphorite</div>
-                    <div class="a aa aaa commodity">Quartz sand</div>
-                    <div class="a aa aaa commodity">Sand</div>
-                    <div class="a aa aaa commodity">Other</div>
-                </div>
-            </div>
-             <div id="ornamental" class="a aa aab group3">
-                <div class="commodities">
-                     <!-- ornamental materials -->
-                    <div class="a aa aab commodity">Granite</div>
-                    <div class="a aa aab commodity">Limestone</div>
-                    <div class="a aa aab commodity">Marble</div>
-                    <div class="a aa aab commodity">Other</div>
-                </div>
-            </div>
-             <div id="industrial" class="a aa aac group3">
-                <div class="commodities">
-                     <!-- industrial materials -->
-                    <div class="a aa aac commodity">Alabaster</div>
-                    <div class="a aa aac commodity">Anhydrite</div>
-                    <div class="a aa aac commodity">Aragonite</div>
-                    <div class="a aa aac commodity">Asbestos</div>
-                    <div class="a aa aac commodity">Ball clay</div>
-                    <div class="a aa aac commodity">Barite</div>
-                    <div class="a aa aac commodity">Barytine</div>
-                    <div class="a aa aac commodity">Bentonite</div>
-                    <div class="a aa aac commodity">Bromine</div>
-                    <div class="a aa aac commodity">Brucite</div>
-                    <div class="a aa aac commodity">Calcite</div>
-                    <div class="a aa aac commodity">Celestine</div>
-                    <div class="a aa aac commodity">Chalk</div>
-                    <div class="a aa aac commodity">Diatomite</div>
-                    <div class="a aa aac commodity">Feldspar</div>
-                    <div class="a aa aac commodity">Fluorspar</div>
-                    <div class="a aa aac commodity">Fuller’s earth</div>
-                    <div class="a aa aac commodity">Graphite</div>
-                    <div class="a aa aac commodity">Gypsum</div>
-                    <div class="a aa aac commodity">Kaoline</div>
-                    <div class="a aa aac commodity">Kyanite</div>
-                    <div class="a aa aac commodity">Magnesite</div>
-                    <div class="a aa aac commodity">Mica</div>
-                    <div class="a aa aac commodity">Muscovite</div>
-                    <div class="a aa aac commodity">Perlite</div>
-                    <div class="a aa aac commodity">Phosphate rocks</div>
-                    <div class="a aa aac commodity">Potash salts</div>
-                    <div class="a aa aac commodity">Pure quartz sand</div>
-                    <div class="a aa aac commodity">Pyrite</div>
-                    <div class="a aa aac commodity">Pyrophyllite</div>
-                    <div class="a aa aac commodity">Quartz</div>
-                    <div class="a aa aac commodity">Salt</div>
-                    <div class="a aa aac commodity">Sillimanite minerals</div>
-                    <div class="a aa aac commodity">Sulphur and pyrites</div>
-                    <div class="a aa aac commodity">Talc</div>
-                    <div class="a aa aac commodity">Witherite</div>
-                    <div class="a aa aac commodity">Wollastonite</div>
-                    <div class="a aa aac commodity">Zeolites</div>
-                    <div class="a aa aac commodity">Other</div>
-                </div>
-            </div>           
-        </div>
-        <div id="metallic" class="a ab group2">
-            <div id="europe" class="a ab aba group3">
-                <div class="commodities">
-                    <!-- metallic european -->
-                    <div class="a ab aba commodity">Arsenic</div>
-                    <div class="a ab aba commodity">Bauxite</div>
-                    <div class="a ab aba commodity">Beryl</div>
-                    <div class="a ab aba commodity">Borom</div>
-                    <div class="a ab aba commodity">Cadmium</div>
-                    <div class="a ab aba commodity">Chromium / chrome</div>
-                    <div class="a ab aba commodity">Cobalt</div>
-                    <div class="a ab aba commodity">Copper</div>
-                    <div class="a ab aba commodity">Gold</div>
-                    <div class="a ab aba commodity">Iron/iron ore</div>
-                    <div class="a ab aba commodity">Lead</div>
-                    <div class="a ab aba commodity">Lithium</div>
-                    <div class="a ab aba commodity">Magnesite</div>
-                    <div class="a ab aba commodity">Manganese</div>
-                    <div class="a ab aba commodity">Mercury</div>
-                    <div class="a ab aba commodity">Molybdenum</div>
-                    <div class="a ab aba commodity">Nickel</div>
-                    <div class="a ab aba commodity">Selenium</div>
-                    <div class="a ab aba commodity">Silver</div>
-                    <div class="a ab aba commodity">Strontium</div>
-                    <div class="a ab aba commodity">Tin</div>
-                    <div class="a ab aba commodity">Tungsten</div>
-                    <div class="a ab aba commodity">Wolfram</div>
-                    <div class="a ab aba commodity">Zinc</div>
-                    <div class="a ab aba commodity">Other</div>
-                </div>
-            </div>           
-            <div id="noneurope" class="a ab abb group3">
-                <div class="commodities">
-                    <!-- metallic noneuropen -->
-                    <div class="a ab abb commodity">Antimony</div>
-                    <div class="a ab abb commodity">Beryllium</div>
-                    <div class="a ab abb commodity">Bismuth</div>
-                    <div class="a ab abb commodity">Boron (boron oxide)</div>
-                    <div class="a ab abb commodity">Cobalt</div>
-                    <div class="a ab abb commodity">Molybdenum</div>
-                    <div class="a ab abb commodity">Niobium</div>
-                    <div class="a ab abb commodity">Platinum group</div>
-                    <div class="a ab abb commodity">Rare earth elements</div>
-                    <div class="a ab abb commodity">Rhenium</div>
-                    <div class="a ab abb commodity">Tantalum</div>
-                    <div class="a ab abb commodity">Tellurium</div>
-                    <div class="a ab abb commodity">Titanium (ilmenite)</div>
-                    <div class="a ab abb commodity">Titanium (rutile)</div>
-                    <div class="a ab abb commodity">Vanadium</div>
-                    <div class="a ab abb commodity">Other</div>  
-                </div>
-            </div>           
-        </div>
-    </div>
-    <div id="energy"  class="b group2">
-        <div id="hydrocarbon"  class="b ba group3">
-            <div class="commodities">
-                <!-- hydrocarbon -->
-                <div class="b ba commodity">Oil</div>
-                <div class="b ba commodity">Gas</div>
-            </div>
-        </div>
-        <div id="fossil" class="b bb group3">
-            <div class="commodities">
-                <!-- fossil -->
-                <div class="b bb commodity">Coal</div>
-                <div class="b bb commodity">Lignite</div>
-                <div class="b bb commodity">Anthracite</div>
-            </div>
-        </div>
-        <div id="otherenergy" class="b bc group3">
-            <div class="commodities">
-                <!-- others -->
-                <div class="b bc commodity">Geothermal energy</div>
-                <div class="b bc commodity">Uranium</div>
-                <div class="b bc commodity">Other</div>
-            </div>
-        </div>
-    </div>  
-  </div>
+    <div id="comm-search"></div>
+    <div id="toc"></div>
 </div><!-- .ui-layout-west -->
 
 <div id="mainmap" class="ui-layout-center">
-<div id="maptoolbar"><div id="edit-point" class="inactive tb-icon"></div><div id="edit-line" class="inactive tb-icon"></div><div id="edit-polygon" class="inactive tb-icon"></div><div id="edit-pan" class="active tb-icon"></div><div id="edit-meet" class="inactive tb-icon"></div></div>
-<div id="map">
-     <div id="zoomslider" class="mq-widget"></div>
-    <div id="overview-toggle" class="ui-icon ui-icon-overview"></div>
-</div>
-
-</div>
+    <div id="map">
+        <div id="zoomslider" class="mq-widget"></div>
+        <div id="maptoolbar"></div>
+        <div id="overview-toggle" class="ui-icon ui-icon-overview"></div>
+    </div>
+</div><!-- .ui-layout-center -->
 
 <div class="ui-layout-east">
-<div id="commoditylist"></div>
-<div id="layers"></div>
-<div id="baselayers"></div>
-
-</div>
+    <div id="commoditylist"></div>
+    <div id="layers"></div>
+</div><!-- .ui-layout-east -->
 
 <div class="ui-layout-south">
-<div id="mouseposition"></div>
- 
-scale: <div id="scale-info" style="position: relative; display: inline;"></div>
-<div id="output" style="position: relative; display: inline;"></div>
-</div>
+    <div id="mouseposition"></div>
+    <div id="scale"></div>
+    <div id="help"></div>
+</div><!-- .ui-layout-south -->
 
 </body>
 </html>
