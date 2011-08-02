@@ -46,7 +46,7 @@ bottom: 1.5em !important;
  .ui-corner-all {
     -moz-border-radius:2px 2px 2px 2px;
 }
-#main-map {
+#map {
   height:100%;
   width:100%;
 }

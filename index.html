@@ -32,6 +32,11 @@
 <!-- MapQuery -->
 
 <script type="text/javascript" src="src/jquery.mapquery.core.js "></script>
+<script type="text/javascript" src="src/jquery.mapquery.legend.js"></script>
+<script type="text/javascript" src="src/jquery.mapquery.mqOverviewMap.js "></script>
+<script type="text/javascript" src="src/jquery.mapquery.mqLayerManager.js"></script>
+<script type="text/javascript" src="src/jquery.mapquery.mqMousePosition.js"></script>
+<script type="text/javascript" src="src/jquery.mapquery.mqZoomSlider.js"></script>
 
 <!-- MapQuery -->
 
@@ -237,20 +242,23 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
 
 <div id="mainmap" class="ui-layout-center">
 <div id="maptoolbar"><div id="edit-point" class="inactive tb-icon"></div><div id="edit-line" class="inactive tb-icon"></div><div id="edit-polygon" class="inactive tb-icon"></div><div id="edit-pan" class="active tb-icon"></div><div id="edit-meet" class="inactive tb-icon"></div></div>
-<div id="main-map"><div id="overview-toggle" class="ui-icon ui-icon-overview"></div></div>
+<div id="map">
+     <div id="zoomslider" class="mq-widget"></div>
+    <div id="overview-toggle" class="ui-icon ui-icon-overview"></div>
+</div>
 
 </div>
 
 <div class="ui-layout-east">
 <div id="commoditylist"></div>
-<div id="referencedata"></div>
+<div id="layers"></div>
 <div id="baselayers"></div>
 
 </div>
 
 <div class="ui-layout-south">
-<div id="mouse-position">
-longitude:<label id="longitude"> 0</label> latitude: <label id="latitude"> 0</label> 
+<div id="mouseposition"></div>
+ 
 scale: <div id="scale-info" style="position: relative; display: inline;"></div>
 <div id="output" style="position: relative; display: inline;"></div>
 </div>
