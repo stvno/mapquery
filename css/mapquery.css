@@ -1,25 +1,31 @@
-/*.legend { float: left; padding-bottom: 5px; }*/
-.layerlegendcontainer { margin: 0.1em 0.3em 0.2em 0.3em; font-size: 70%;}
-.layerlegendheader {  position:relative;padding-left: 0.2em;-moz-border-radius:2px 2px 0px 0px;}
-.legendoverlaylayers .layerlegendheader { cursor: move; }
-.layerlegendheader .mq-legend-boxes { position: absolute; top: 0px; right: 2px; margin: 0px; padding:0px;}
-.layerlegendheader .mq-legend-boxes .ui-icon { position: relative; display: inline-block;}
-.layerlegendcontent { padding: 0.4em; background: #eeeeec; border: solid 1px #2e3436; border-top:none;}
-.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 80px !important; }
-.ui-state-highlight { margin: 0 1em 0.2em 0; font-size: 70%; height: 80px; line-height: 1.2em; }
-.ui-sortable-placeholder * { visibility: hidden; }
-.legendslidercontainer { width: 250px; }
-.legendcbcontainer { }
-.legendslider { margin: 1px; }
-.ui-icon {cursor: pointer;}
-.mq-featureinfo-result {
+.mq-mouseposition {
+    display: block;
+    width: 300px;
 }
-.mq-featureinfo-header {
-font-weight:bold;
+.mq-mouseposition-coordinate {
+    display: inline-block;  
+    margin:2px;       
 }
-.featureinfodialog hr {
-color: #3465a4;
-background-color: #3465a4;
-height: 1px;
+
+.mq-overviewmap-dialog .ui-dialog-content{
+    padding: 0.4em;
+ 
 }
-.mapquerysearchform { display: inline;}
+.mq-overviewmap-button {
+  margin: 2px;
+  padding: 4px ;
+  cursor: pointer;
+  margin: 5px; 
+  z-index: 9999;
+  bottom: 0;
+  float: right;
+  position: absolute;
+  right: 0;
+}
+.mq-zoomslider {
+    position: absolute;
+    float: left;
+    margin: 10px;
+    z-index: 10000;
+   
+}

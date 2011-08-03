@@ -36,6 +36,7 @@
 <script type="text/javascript" src="src/jquery.mapquery.mqLayerManager.js"></script>
 <script type="text/javascript" src="src/jquery.mapquery.mqMousePosition.js"></script>
 <script type="text/javascript" src="src/jquery.mapquery.mqZoomSlider.js"></script>
+<script type="text/javascript" src="src/jquery.mapquery.mqJsonSearch.js"></script>
 
 <!-- MapQuery -->
 
@@ -70,26 +71,26 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
     <a href="."><img src="css/images/logo.png"/></a><div id="geo-search"></div><div style="float:right;margin-top:4px;margin-right:4px;"><a href="http://europa.eu/"><img src="css/images/autopa.gif"></a></div>
     </div>
     <div class="heading-bottom">
-        <div class="h-b-west">Commodities</div>
+        <div class="h-b-west">Data sources</div>
         <span id="close-west" class="ui-layout-button-close"></span>
         <span id="open-west" class="ui-layout-button-close"></span>
         <span class="h-b-middle"><span id="savevectorlayer" title="save drawing">save</span> | <span id="loadvectorlayer" title="open drawing from file">open</span> | <span onClick="alert('Help is coming')">help</span> | <span id="permalinkbuilder" title="permalink for this extent">link</span></span>
         <span id="close-east" class="ui-layout-button-close"></span>
         <span id="open-east" class="ui-layout-button-close"></span>
-        <div class="h-b-east">Layer management</div>
+        <div class="h-b-east">Map data</div>
     </div>
 </div><!-- .ui-layout-north -->
 
-<div class="ui-layout-west">
-    <div id="comm-search"></div>
-    <div id="toc"></div>
+<div class="ui-layout-west"> 
+    <div id="com-toc"><div id="com-search"></div></div>
+    <div id="layer-toc"></div>
 </div><!-- .ui-layout-west -->
 
 <div id="mainmap" class="ui-layout-center">
     <div id="map">
         <div id="zoomslider" class="mq-widget"></div>
         <div id="maptoolbar"></div>
-        <div id="overview-toggle" class="ui-icon ui-icon-overview"></div>
+        <div id="overview" class="mq-widget"></div>
     </div>
 </div><!-- .ui-layout-center -->
 
