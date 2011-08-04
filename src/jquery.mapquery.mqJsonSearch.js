@@ -19,8 +19,6 @@ $.widget("mapQuery.mqJsonSearch", {
         // The URL returning the search results as JSON
         // TODO should url have search parameter ??
         url: 'http://localhost/2011/search.json?',
-        // function to use when clicking on a result-item 
-        onclick: undefined,
         // the size of the search field
         size: 20,
         // the value of the search button
@@ -46,6 +44,10 @@ $.widget("mapQuery.mqJsonSearch", {
         element.delegate('.searchbutton', 'click', function() {
             var searchterm = element.find('.searchstring').val();         
             self._search(searchterm);
+        });
+        element.delegate('.commodity', 'click', function() {
+            var comm = $(this).html();
+            self._getCommodity(comm);
         });
     },
     _destroy: function() {
@@ -84,8 +86,14 @@ $.widget("mapQuery.mqJsonSearch", {
 
         });
     },
-    _parseResult: function(result) {
-        
+    _getCommodity: function(value) {
+        var jqxhr = $.getJSON("http://eurogeosource.geodan.nl/OneGeologyServlet/JSONRetreiver?jsoncallback=?",
+        {
+            commodity: value
+        },
+        function(data) {
+            $('#map').data('mapQuery').commodities(data);
+        });
     }
     
 });
