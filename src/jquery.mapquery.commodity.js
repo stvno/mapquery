@@ -32,12 +32,13 @@ $.extend(MQ.Map.prototype, {
     //Check if the layer has a maximum box set and if the current box
     //is outside these settings, set the legend.msg accordingly
     _allCommodities: function() {
+        if(!this.commoditiesList) {this.commoditiesList =[]}
         var commodities = [];
-        $.each(this.commodityList, function(id, commodity) {
+        $.each(this.commoditiesList, function(id, commodity) {
             var item = [commodity.position(), commodity];
-            commoditys.push(item);
+            commodities.push(item);
         });
-        var sorted = commodity.sort( function compare(a, b) {
+        var sorted = commodities.sort( function compare(a, b) {
             return a[0] - b[0];
         });
         var result = $.map(sorted, function(item) {
@@ -48,10 +49,10 @@ $.extend(MQ.Map.prototype, {
     //Check if the layer has a minimum or maximum zoom set and if the
     //current zoom is outside these settings, set the legend.msg accordingly
     _addCommodity: function(options) {
-        if(!this.commoditysList) {this.commoditysList =[]}
+        if(!this.commoditiesList) {this.commoditiesList =[]}
         var id = this._createcId();
         var commodity = new $.MapQuery.Commodity(this, id, options);
-        this.commoditysList[id] = commodity;
+        this.commoditiesList[id] = commodity;
         this.events.trigger('mqAddCommodity',commodity);
         return commodity;
     },
@@ -61,7 +62,7 @@ $.extend(MQ.Map.prototype, {
     },
     _removeCommodity: function(id) {
         this.events.trigger('mqRemoveCommodity',id);
-        delete this.commoditysList[id];
+        delete this.commoditiesList[id];
         return this;
     }
 });
