@@ -87,13 +87,12 @@ $.widget("mapQuery.mqJsonSearch", {
         });
     },
     _getCommodity: function(value) {
-        var jqxhr = $.getJSON("http://eurogeosource.geodan.nl/OneGeologyServlet/JSONRetreiver?jsoncallback=?",
-        {
-            commodity: value
-        },
-        function(data) {
-            $('#map').data('mapQuery').commodities(data);
-        });
+       // var jqxhr = $.getJSON("http://eurogeosource.geodan.nl/OneGeologyServlet/JSONRetreiver?jsoncallback=?",
+       var url = 'http://localhost/2011/commodity.json?';
+       var id = {commodity:value};
+       $.getJSON(url,id, function(data,element) {           
+            $('#map').data('mapQuery').commodities(data.results);
+       });
     }
     
 });

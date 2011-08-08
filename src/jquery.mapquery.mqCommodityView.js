@@ -48,7 +48,7 @@ $.widget("mapQuery.mqCommodityView", {
         $.tmpl('mqCommodityView',{
         id: commodity.id
        
-        }).dialog({ title: commodity.options.commodity});
+        }).dialog({ title: commodity.options.name});
         this._createPie(commodity.options,commodity.id);
         
     },

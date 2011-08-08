@@ -76,5 +76,44 @@ $.MapQuery.Commodity = function(map, id, options) {
     // layer)
     this.map = map;
     this.options = options;
+    
+};
+$.MapQuery.Commodity.prototype = {/*
+    remove: function() {
+        this.map.olMap.removeLayer(this.olLayer);
+        // remove references to this layer that are stored in the
+        // map object
+        return this.map._removeLayer(this.id);
+    },
+    position: function(pos) {
+        if (pos===undefined) {
+            return this.map.olMap.getLayerIndex(this.olLayer)-1;
+        }
+        else {
+            return this.map.olMap.setLayerIndex(this.olLayer, pos+1);
+        }
+    },
+    visible: function(vis) {
+        if (vis===undefined) {
+            return this.olLayer.getVisibility();
+        }
+        else {
+            this.olLayer.setVisibility(vis);
+            return this;
+        }
+    },
+    opacity: function(opac) {
+         if (opac===undefined) {
+            // this.olLayer.opacity can be null if never
+        // set so return the visibility
+            var value = this.olLayer.opacity ?
+            this.olLayer.opacity : this.olLayer.getVisibility();
+            return value;
+        }
+        else {
+            this.olLayer.setOpacity(opac);
+            return this;
+        }
+    }*/
 };
 })(jQuery, $.MapQuery);
