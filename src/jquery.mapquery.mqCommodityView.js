@@ -50,7 +50,7 @@ $.widget("mapQuery.mqCommodityView", {
        
         }).dialog({ title: commodity.options.name});
         this._createPie(commodity.options,commodity.id);
-        
+        this._createGeometry(commodity.options,commodity.id);
     },
     
     _createPie: function(data,id) {
@@ -131,7 +131,23 @@ $.widget("mapQuery.mqCommodityView", {
         };
         
     },
-        
+    _createGeometry: function(data,id) {
+        var url;
+        if(data.url) {
+            url = data.url;
+            
+            var layer = {
+                type: 'JSON',
+                url: url,
+                projection: 'EPSG:4326',
+                //url: 'http://localhost:5984/ethiopia_reservate/_design/geo/_list/geojson/all?type=geojson',
+                label: data.name,
+                data: data
+            };
+            var map = this.options.map;
+            $(map).data('mapQuery').layers(layer);
+        }
+    },
     _onCommodityAdd: function(evt, commodity) {
         evt.data.widget._commodityAdded(evt.data.widget,commodity);
     }

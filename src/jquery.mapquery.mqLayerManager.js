@@ -61,6 +61,31 @@ $.template('mqLayerManagerElement',
     '</div>'+
     '</div>');
 
+$.template('mqLayerManagerCommodity',
+    '<div class="mq-layermanager-element ui-widget-content ui-corner-all" id="mq-layermanager-element-${id}">'+
+    '<div class="mq-layermanager-element-header ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">'+
+    '<span class="mq-layermanager-label ui-dialog-title">${label}</span>'+
+    '<a class="ui-dialog-titlebar-close ui-corner-all" href="#" role="button">'+
+    '<span class="ui-icon ui-icon-closethick">close</span></a></div>'+
+    '<div class="mq-layermanager-element-content">'+
+        '<div class="mq-layermanager-element-visibility">'+
+            '<input type="checkbox" class="mq-layermanager-element-vischeckbox" id="${id}-visibility" {{if visible}}checked="${visible}"{{/if}} />'+
+            '<div class="mq-layermanager-element-slider-container">'+
+        '<div class="mq-layermanager-element-slider"></div></div>'+
+        '</div>'+
+        '<div class="mq-layermanager-element-legend">'+
+            '{{each(i, foo) group}}'+
+                '<li>${foo.title}'+
+                    '<ul>{{each(j, bar) foo.data }}'+
+                    '<li>${bar.name} </li>'+
+                       '{{/each}}</ul>'+
+                '</li>'+
+            '{{/each}}'+
+        '</div>'+
+    '</div>'+
+    '</div>');
+
+
 $.widget("mapQuery.mqLayerManager", {
     options: {
         // The MapQuery instance
@@ -185,21 +210,40 @@ $.widget("mapQuery.mqLayerManager", {
                 error = 'This layer is outside the current view';
                 break;
         }
-
-        var layerElement = $.tmpl('mqLayerManagerElement',{
-            id: layer.id,
-            label: layer.label,
-            position: layer.position(),
-            visible: layer.visible(),
-            imgUrl: url,
-            opacity: layer.visible()?layer.opacity():0,
-            errMsg: error
-        })
-            // save layer layer in the DOM, so we can easily
-            // hide/show/delete the layer with live events
-            .data('layer', layer)
-            .data('self',self)
-            .prependTo(widget);
+        if(layer.isVector) {
+            var group = layer.options.data.group;
+            
+            var layerElement = $.tmpl('mqLayerManagerCommodity',{
+                id: layer.id,
+                label: layer.label,
+                position: layer.position(),
+                visible: layer.visible(),                
+                opacity: layer.visible()?layer.opacity():0,
+                group: group
+                
+            })
+                // save layer layer in the DOM, so we can easily
+                // hide/show/delete the layer with live events
+                .data('layer', layer)
+                .data('self',self)
+                .prependTo(widget);
+        }
+        else {
+            var layerElement = $.tmpl('mqLayerManagerElement',{
+                id: layer.id,
+                label: layer.label,
+                position: layer.position(),
+                visible: layer.visible(),
+                imgUrl: url,
+                opacity: layer.visible()?layer.opacity():0,
+                errMsg: error
+            })
+                // save layer layer in the DOM, so we can easily
+                // hide/show/delete the layer with live events
+                .data('layer', layer)
+                .data('self',self)
+                .prependTo(widget);
+            }
 
        $(".mq-layermanager-element-slider", layerElement).slider({
            max: 100,
