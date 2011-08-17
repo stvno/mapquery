@@ -93,7 +93,7 @@ background-image: url("images/spinner.gif");
 #base-legend li, #map-legend li {
 cursor: pointer;
 }
-#com-container .folder-img , #map-legend .folder-img {
+#layers .folder-img , #map-legend .folder-img {
 width:14px;
 height: 14px;
 float:left;
@@ -108,19 +108,19 @@ background-image: url("images/base-on.png") !important;
 #base-legend li.baselayer-off{
 background-image: url("images/base-off.png") !important;
 }
-#com-container li {
+#layers li {
 background-repeat: no-repeat;
 padding-left: 16px; 
 background-image: url("images/folder-off.png");
 }
 
-#com-container li.layer-on{
+#layers li.layer-on{
 background-image: url("images/layer-on.png");
 }
-#com-container li.li-layer {
+#layers li.li-layer {
 background-image: url("images/layer-off.png");
 }
 
-#com-container li.open{
+#layers li.open{
 background-image: url("images/folder-on.png");
 }

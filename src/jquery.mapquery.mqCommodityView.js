@@ -5,12 +5,20 @@
 
 (function($) {
 $.template('mqCommodityView',
-    '<div class="ui-dialog-content ui-widget-content">'+
-    '<div id="c${id}"></div>'+
-    '<div id="d${id}"></div>'+
-    '<div id="u${id}"></div>'+
+    '<div class="ui-dialog-content ui-widget-content" >'+
+     '{{each(i, foo) group}}'+
+      '<div id="${id}-${i}"></div>'+
+     '{{/each}}'+    
     '</div>');
 
+$.template('mqCommodityViewLink',
+    '<div class="mq-commodityview-button ui-state-default ui-corner-all">'+
+    '<div class="mq-commodityview-close ui-icon ui-icon-arrowthick-1-se "></div>'+
+    '</div>'+
+    '<div id="${id}" class="mq-commodityview ui-widget ">'+
+    '</div>');
+        
+        
 $.widget("mapQuery.mqCommodityView", {
     options: {
         // The MapQuery instance
@@ -36,6 +44,8 @@ $.widget("mapQuery.mqCommodityView", {
        
         this.element.addClass(' ui-widget ui-helper-clearfix ui-dialog ' +
                                  'ui-corner-all');
+                                 
+         
     },
     _destroy: function() {
         this.element.removeClass(' ui-widget ui-helper-clearfix ui-dialog ' +
@@ -44,91 +54,61 @@ $.widget("mapQuery.mqCommodityView", {
     },
     
     _commodityAdded: function(widget, commodity) {
+      /*  var id = 'com-dialog-'+commodity.id;
         
-        $.tmpl('mqCommodityView',{
-        id: commodity.id
-       
-        }).dialog({ title: commodity.options.name});
-        this._createPie(commodity.options,commodity.id);
+        $.tmpl('mqCommodityViewLink',{
+            id: id}).appendTo(widget.element);
+        
+        var html = $.tmpl('mqCommodityView',{
+            id: commodity.id,
+            group: commodity.options.group
+        });
+        var dialog =  $('#'+id)
+            .html(html)
+            .dialog({ title: commodity.options.name});
+        */
+      //  this._createPie(commodity.options,commodity.id,widget);
         this._createGeometry(commodity.options,commodity.id);
     },
     
-    _createPie: function(data,id) {
-        if (data.countries) {            
-            var rc = Raphael("c"+id, 280, 140);
-            var rcvalue =[];
-            var rclabel = [];
-            for(i=0;i<data.countries.length;i++){
-                rclabel[i] = data.countries[i].name;
-                rcvalue[i] = parseFloat(data.countries[i].percentage);
-            }
-            var piec = rc.g.piechart(60,70,50, rcvalue, {legend:rclabel});
-            piec.hover(function () {
-                    this.sector.stop();
-                    this.sector.scale(1.1, 1.1, this.cx, this.cy);
-                    if (this.label) {
+    _createPie: function(data,id,widget) {
+        $.each(data.group, function(index, value) {
+            var r = Raphael(id+"-"+index, 280, 140);
+             r.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
+            var rvalue =[];
+            var rlabel = [];
+            var rurl = [];
+            $.each(data.group[index].data, function(i,v){
+                rlabel[i] = v.name;
+                rvalue[i] = v.percentage;
+               // rurl[i] = '#'+widget.zoomTo(data.group[index].title,v.name); 
+            })
+            var pie = r.g.piechart(60,70,50, rvalue, {legend:rlabel});
+            pie.click(function() {
+               widget.zoomTo(this.sector.paper.canvas.parentNode.id,this.label[1].attrs.text);
+            });
+            pie.hover(function () {
+                this.sector.stop();
+                this.sector.scale(1.1, 1.1, this.cx, this.cy);
+                if (this.label) {
                         this.label[0].stop();
                         this.label[0].scale(1.5);
                         this.label[1].attr({"font-weight": 800});
                     }
                 }, function () {
-                    this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
-                    if (this.label) {
+                this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
+                if (this.label) {
                         this.label[0].animate({scale: 1}, 500, "bounce");
                         this.label[1].attr({"font-weight": 400});
                     }
-                });
-        };
-        if (data.deposits) {
-            var rd = Raphael("d"+id, 280, 140);
-            var rdvalue =[];
-            var rdlabel = [];
-            for(i=0;i<data.deposits.length;i++){
-                rdlabel[i] = data.deposits[i].name;
-                rdvalue[i] = parseFloat(data.deposits[i].percentage);
-            }
-            var pied = rd.g.piechart(60,70,50, rdvalue, {legend:rdlabel});
-            pied.hover(function () {
-                    this.sector.stop();
-                    this.sector.scale(1.1, 1.1, this.cx, this.cy);
-                    if (this.label) {
-                        this.label[0].stop();
-                        this.label[0].scale(1.5);
-                        this.label[1].attr({"font-weight": 800});
-                    }
-                }, function () {
-                    this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
-                    if (this.label) {
-                        this.label[0].animate({scale: 1}, 500, "bounce");
-                        this.label[1].attr({"font-weight": 400});
-                    }
-                });
-        };
-        if (data.classifications) {
-            var ru = Raphael("u"+id, 280, 140);
-            var ruvalue =[];
-            var rulabel = [];
-            for(i=0;i<data.classifications.length;i++){
-                rulabel[i] = data.classifications[i].name;
-                ruvalue[i] = parseFloat(data.classifications[i].percentage);
-            }
-            var pieu =ru.g.piechart(60,70,50, ruvalue, {legend:rulabel});
-            pieu.hover(function () {
-                    this.sector.stop();
-                    this.sector.scale(1.1, 1.1, this.cx, this.cy);
-                    if (this.label) {
-                        this.label[0].stop();
-                        this.label[0].scale(1.5);
-                        this.label[1].attr({"font-weight": 800});
-                    }
-                }, function () {
-                    this.sector.animate({scale: [1, 1, this.cx, this.cy]}, 500, "bounce");
-                    if (this.label) {
-                        this.label[0].animate({scale: 1}, 500, "bounce");
-                        this.label[1].attr({"font-weight": 400});
-                    }
-                });
-        };
+            });
+        });   
+    },
+    zoomTo: function(group, name) {
+        group = group.split('-');
+        var id = group[0];
+        var groupid = group[1];
+        alert('group='+group+' name='+name);
         
     },
     _createGeometry: function(data,id) {
@@ -140,6 +120,7 @@ $.widget("mapQuery.mqCommodityView", {
                 type: 'JSON',
                 url: url,
                 projection: 'EPSG:4326',
+                
                 //url: 'http://localhost:5984/ethiopia_reservate/_design/geo/_list/geojson/all?type=geojson',
                 label: data.name,
                 data: data
