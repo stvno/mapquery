@@ -192,7 +192,7 @@ $.widget("mapQuery.mqLayerJsonManager", {
     },
     _commodityClicked: function(layer,group,name,pie) {
         var names=[];
-        if(pie) this._pieClick();
+        if(pie) names= this._pieClick(layer,group,name);
         else names= this._checkBoxes(layer,group,name);
         var url = layer.options.url.split('&');
         
@@ -229,7 +229,33 @@ $.widget("mapQuery.mqLayerJsonManager", {
         })
         return names;
     },
-    
+    _pieClick: function(layer,group,name) {
+        var id = "#mq-layerjsonmanager-element-"+layer.id;
+        var element = $(id);
+        var groupul = element.find('.mq-group');
+        var names=[];
+        $.each(groupul, function(index) {
+            if(group==index) {
+                var groups = $(this).find('.mq-commodity');
+                $.each(groups, function() {
+                    var text = $(this).text();
+                    if(text==name) {
+                        $(this).removeClass('li-layer').addClass('layer-on');
+                        names.push(text);
+                    }
+                    else {
+                        $(this).addClass('li-layer').removeClass('layer-on');
+                    }
+                })
+               
+            }
+            else {
+                $(this).find('.mq-commodity').addClass('li-layer').removeClass('layer-on');
+            }
+            
+        })
+        return names;
+    },
     //functions that change the widget
     _layerAdded: function(widget, layer) {
         var self = this;
@@ -357,7 +383,7 @@ $.widget("mapQuery.mqLayerJsonManager", {
                 var part = this.sector.paper.canvas.parentNode.id;
                 part = part.split('-');
                 
-               widget._commodityClicked(layer,part[1],this.label[1].attrs.text);
+               widget._commodityClicked(layer,part[1],this.label[1].attrs.text,true);
             });
             pie.hover(function () {
                 this.sector.stop();
