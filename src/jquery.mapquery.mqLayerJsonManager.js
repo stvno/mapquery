@@ -18,15 +18,16 @@ $.template('mqCommodityPopup',
     
 $.template('mqLayerJsonManagerElement',
     '<div class="mq-layerjsonmanager-element ui-widget-content ui-corner-all" id="mq-layerjsonmanager-element-${id}">'+
-    '<div class="mq-layerjsonmanager-element-header ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">'+
-    '<span class="mq-layerjsonmanager-label ui-dialog-title">${label}</span>'+
-    '<a class="ui-dialog-titlebar-close ui-corner-all" href="#" role="button">'+
+    '<div class="mq-layerjsonmanager-element-header ui-dialog-titlebar ui-widget-header ui-helper-clearfix">'+
+    '<img class="folder-img visible mq-layerjsonmanager-visible" src="css/images/layer-on.png"><li class="mq-json-list open"><span class="mq-json-label close">${label}</span></li></span>'+
+    //'<span class="mq-layerjsonmanager-label ui-dialog-title">${label}</span>'+
+    '<a class="ui-dialog-titlebar-close ui-corner-all mq-layerjsonmanager-close" href="#" role="button">'+
     '<span class="ui-icon ui-icon-closethick">close</span></a></div>'+
     '<div class="mq-layerjsonmanager-element-content">'+
-        '<div class="mq-layerjsonmanager-element-visibility">'+
-            '<input type="checkbox" class="mq-layerjsonmanager-element-vischeckbox" id="${id}-visibility" {{if visible}}checked="${visible}"{{/if}} />'+
+        
+           
             '<div class="mq-layerjsonmanager-element-slider-container">'+
-        '<div class="mq-layerjsonmanager-element-slider"></div></div>'+
+        '<div class="mq-layerjsonmanager-element-slider"></div>'+
         '</div>'+
         '<div class="mq-layerjsonmanager-element-legend">'+
             '{{if imgUrl}}'+
@@ -41,16 +42,15 @@ $.template('mqLayerJsonManagerElement',
 
 $.template('mqLayerJsonManagerCommodity',
     '<div class=" mq-layerjsonmanager-element mq-layerjsonmanager-commodity ui-widget-content ui-corner-all" id="mq-layerjsonmanager-element-${id}">'+
-    '<div class="mq-layerjsonmanager-element-header mq-layerjsonmanager-commodity-header ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">'+
-    '<span class="mq-layerjsonmanager-label ui-dialog-title close">${label}</span>'+
-    '<a class="ui-dialog-titlebar-close ui-corner-all" href="#" role="button">'+
+    '<div class="mq-layerjsonmanager-element-header mq-layerjsonmanager-commodity-header ui-dialog-titlebar ui-widget-header  ui-helper-clearfix">'+
+    '<span class="mq-layerjsonmanager-label ui-dialog-title close">'+
+    '<img class="folder-img visible mq-layerjsonmanager-visible" src="css/images/layer-on.png"><li class="mq-json-list open"><span class="mq-json-label close">${label}</span></li></span>'+
+    
+    '<a class="ui-dialog-titlebar-close ui-corner-all mq-layerjsonmanager-close" href="#" role="button">'+
     '<span class="ui-icon ui-icon-closethick">close</span></a></div>'+
-    '<div class="mq-layerjsonmanager-commodity-content">'+
-        '<div class="mq-layerjsonmanager-commodity-visibility">'+
-            '<input type="checkbox" class="mq-layerjsonmanager-commodity-vischeckbox" id="${id}-visibility" {{if visible}}checked="${visible}"{{/if}} />'+
-            '<div class="mq-layerjsonmanager-commodity-slider-container">'+
-        '<div class="mq-layerjsonmanager-commodity-slider"></div></div>'+
-        '</div>'+
+    '<div class="mq-layerjsonmanager-commodity-content mq-layerjsonmanager-element-content">'+
+        
+
         '<div class="mq-layerjsonmanager-commodity-legend"><ul class="mq-group-ul">'+
             '{{each(i, foo) group}}'+
                 '<li class="mq-group mq-group-${foo.title} open"><span class="${i}">${foo.title}</span>'+
@@ -108,13 +108,14 @@ $.widget("mapQuery.mqLayerJsonManager", {
            self._layerAdded(lmElement, this);
         });
 
-        element.delegate('.mq-layerjsonmanager-element-vischeckbox',
-            'change',function() {
+        element.delegate('.mq-layerjsonmanager-visible',
+            'click',function() {
             var checkbox = $(this);
             var element = checkbox.parents('.mq-layerjsonmanager-element');
             var layer = element.data('layer');
             var self = element.data('self');
-            self._visible(layer,checkbox.attr('checked'));
+            self._visible(layer,checkbox.hasClass('invisible'));
+            return false;
          });
 
         element.delegate('.ui-icon-closethick', 'click', function() {
@@ -132,14 +133,12 @@ $.widget("mapQuery.mqLayerJsonManager", {
             return false;
         });
         
-        element.delegate('.mq-layerjsonmanager-label', 'click', function() {
-            var header = $(this);
-            var element = header.parents('.mq-layerjsonmanager-commodity');
-            var layer = element.data('layer');
-            var popup = '#com-svg-'+layer.id;
-            $(popup).dialog('open');
+        element.delegate('.mq-json-list', 'click', function() {
+            $(this).toggleClass('open');
+            var json = $(this).parents('.mq-layerjsonmanager-element').find('.mq-layerjsonmanager-element-content');
+            json.toggle('blind');
+            return false;
         });
-        
         element.delegate('.mq-group', 'click', function(){
             $(this).toggleClass('open');
             var group = $(this).find('.mq-commodity-ul');
@@ -198,7 +197,7 @@ $.widget("mapQuery.mqLayerJsonManager", {
         
         url = url[0]+"&group="+layer.options.data.group[group].title+"&name="+names;
         layer.options.url=url;
-        layer.olLayer.protocol.options.url=url;
+        layer.olLayer.protocol.options.url=url;        
         //layer.olLayer.strategies[0].layer.protocol.url="/2011/geometry2.json";
         //layer.olLayer.strategies[0].refresh();
         layer.olLayer.refresh({force:true});
@@ -348,19 +347,20 @@ $.widget("mapQuery.mqLayerJsonManager", {
             autoOpen: true,
             title: layer.options.data.name,
             close:function(event,ui){
-                 layerElement.find('.mq-layerjsonmanager-label.close').removeClass('close').addClass('open');
+                 layerElement.find('.mq-json-label.close').removeClass('close').addClass('open');
             }
         });
         this._createPie(layer,this);
 
-        layerElement.delegate('.mq-layerjsonmanager-label.close', 'click', function() {
+        layerElement.delegate('.mq-json-label.close', 'click', function() {
             dialog.dialog('close');
             $(this).removeClass('close').addClass('open');
-
+            return false;
         });
-        layerElement.delegate('.mq-layerjsonmanager-label.open', 'click', function() {
+        layerElement.delegate('.mq-json-label.open', 'click', function() {
             dialog.dialog('open');
-        $(this).removeClass('open').addClass('close');
+            $(this).removeClass('open').addClass('close');
+            return false;
         });
        
     },
@@ -427,9 +427,29 @@ $.widget("mapQuery.mqLayerJsonManager", {
     _layerVisible: function(widget, layer) {
         var layerElement =
         widget.element.find('#mq-layerjsonmanager-element-'+layer.id);
+        
+        var img = layerElement.find('.mq-layerjsonmanager-visible');
+        
+        
+        /*if(img.hasClass('invisible')) {
+            img.attr('src','css/images/layer-on.png');
+        }
+        else img.attr('src','css/images/layer-off.png')
+        img.toggleClass('invisible');
+        
+        
         var checkbox =
         layerElement.find('.mq-layerjsonmanager-element-vischeckbox');
-        checkbox[0].checked = layer.visible();
+        checkbox[0].checked = layer.visible();*/
+       
+        if(layer.visible()) {
+            img.attr('src','css/images/layer-on.png');
+            img.removeClass('invisible');
+        }
+        else {
+            img.attr('src','css/images/layer-off.png');
+            img.addClass('invisible');
+        }
         //update the opacity slider as well
         var slider = layerElement.find('.mq-layerjsonmanager-element-slider');
         var value = layer.visible()?layer.opacity()*100: 0;
@@ -437,7 +457,8 @@ $.widget("mapQuery.mqLayerJsonManager", {
 
         //update legend image
         layerElement.find('.mq-layerjsonmanager-element-legend img').css(
-            {visibility:layer.visible()?true:'hidden'});
+            {visibility:layer.visible()?'visible':'hidden'});
+        
     },
 
     _layerOpacity: function(widget, layer) {
