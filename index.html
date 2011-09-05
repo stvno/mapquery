@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="css/layout.css" />
 <link rel="stylesheet" type="text/css" href="css/mapquery.css" />
 <link rel="stylesheet" type="text/css" href="css/egs.css" />
+<link rel="stylesheet" href="lib/slickgrid/slick.grid.css" type="text/css" media="screen" charset="utf-8" /> 
 <!-- css -->
 
 <!-- jQuery -->
@@ -22,7 +23,7 @@
 <script src="lib/jquery/jquery.tmpl.js" type="text/javascript"></script>
 <script src="lib/jquery/ui/jquery-ui.js" type="text/javascript"></script>
 
-<script type="text/javascript" src="http://layout.jquery-dev.net/download/jquery.layout.min-1.2.0.js"></script>
+<script type="text/javascript" src="lib/jquery/jquery.layout.min-1.2.0.js"></script>
 <!-- jQuery -->
 
 <!-- Google Maps API v3-->
@@ -46,7 +47,10 @@
 
 <!-- MapQuery -->
 
-
+<!--Slickgrid-->
+<script language="JavaScript" src="lib/slickgrid/lib/jquery.event.drag-2.0.min.js"></script> 
+<script type="text/javascript" src="lib/slickgrid/slick.grid.js"></script>
+<!--Slickgrid-->
 
 <!-- eigen scripts -->
 
@@ -89,7 +93,7 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
 
 <div class="ui-layout-west"> 
     <div id="com-toc"><div id="com-search"></div></div>
-    <div id="layer-toc"></div>
+    <div id="layer-toc"></div>    
 </div><!-- .ui-layout-west -->
 
 <div id="mainmap" class="ui-layout-center">
@@ -99,6 +103,7 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
         <div id="overview" class="mq-widget"></div>
         <div id="com-view" class="mq-widget"></div>
         <div id="popup" class="mq-widget"></div>
+       <!-- <div id='myGrid' class="mq-widget" style="float: left;position: absolute;z-index: 100000;bottom: 20px;width:600px;height:400px;"></div>-->
     </div>
 </div><!-- .ui-layout-center -->
 

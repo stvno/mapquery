@@ -276,6 +276,9 @@ $.widget("mapQuery.mqLayerJsonManager", {
                 break;
         }
         if(layer.isVector) {
+            if(!layer.options.data) {
+                return false;
+            }
             var group = layer.options.data.group;
             
             var layerElement = $.tmpl('mqLayerJsonManagerCommodity',{

@@ -765,6 +765,25 @@ stating which update strategy should be used (default fixed)
                 options: o
             };
         },
+        marker: function(options) {            
+            var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
+                $.fn.mapQuery.defaults.layer.marker,
+                options);
+            this.isVector = true;
+            var label = options.label || undefined;
+            var position = o.position;
+            
+            
+            var params = {
+                features: new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(position[0],position[1]).transform(new OpenLayers.Projection(this.map.options.displayProjection),new OpenLayers.Projection(this.map.options.projection))),                
+                styleMap: o.styleMap
+            };
+            return {
+                layer: new OpenLayers.Layer.Vector(o.label, params),
+                options: o
+            };
+            
+        },
 /**
 ###*layer* `{type:osm}`
 _version added 0.1_
@@ -960,6 +979,14 @@ $.fn.mapQuery.defaults = {
         vector: {
             // options for vector layers
             strategies: ['fixed']
+        },
+        marker: {
+            styleMap: new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style({
+                    pointRadius: 16,
+                    externalGraphic: 'css/images/marker.png'
+                })
+            })
         },
         wmts: {
             format: 'image/jpeg',

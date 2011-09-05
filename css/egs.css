@@ -143,6 +143,13 @@ float:left;
 #layers li.open{
     background-image: url("images/folder-on.png");
 }
+
+.ui-dialog-titlebar li {
+    background-image: url("images/wfolder-off.png") !important;
+}
+.ui-dialog-titlebar li.open {
+    background-image: url("images/wfolder-on.png") !important;
+}
 .ui-dialog .ui-dialog-titlebar {
 padding: 0em;
 padding-left: 0.2em;

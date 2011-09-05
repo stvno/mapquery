@@ -65,6 +65,7 @@ $.widget("mapQuery.mqGeocoder", {
                 //map.center({position:[data.results[0].geometry.location.lng,data.results[0].geometry.location.lat],zoom:8})
                 var bounds = data.results[0].geometry.bounds;
                 map.center({box:[bounds.southwest.lng,bounds.southwest.lat,bounds.northeast.lng,bounds.northeast.lat]})
+                map.layers({type:'marker',position:[data.results[0].geometry.location.lng,data.results[0].geometry.location.lat]})
                 /*$.each(data.results, function() {
                     alert(this.formatted_address); 
                 });*/

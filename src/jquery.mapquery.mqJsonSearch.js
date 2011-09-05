@@ -8,7 +8,7 @@ $.template('mqJsonSearch',
     '<div class="mq-jsonsearch ui-widget ui-helper-clearfix ">'+
     '<form><input type="text" class="searchstring" size="${size}">'+
     '<input type="submit" class="searchbutton" value="${search}"></form>'+
-    '<div class="results"></div>'+
+    '<div class="result"></div>'+
     '</div>');
 
 $.widget("mapQuery.mqJsonSearch", {
@@ -16,9 +16,9 @@ $.widget("mapQuery.mqJsonSearch", {
         // The MapQuery instance
         map: undefined,
         
-        // The URL returning the search results as JSON
+        // The URL returning the search result as JSON
         // TODO should url have search parameter ??
-        url: '/2011/search.json?',
+        url: 'http://tm-sr:8080/EuroGeoSource/Search?',
         // the size of the search field
         size: 20,
         // the value of the search button
@@ -58,41 +58,41 @@ $.widget("mapQuery.mqJsonSearch", {
     },
     _search: function(searchterm) {
         //search button click, get json with search string from url
-        //list the results
+        //list the result
         var element = this.element;
-        var url = this.options.url + searchterm;
+        var url = this.options.url + searchterm+'&jsoncallback=?';
         var id = {id:element[0].id};
         $.getJSON(url, id, function(data, element) {
             var elementid = this.data.split('=')[1];
             var commodities = [];
             var result;
             var text;
-            if(data.results) {
-                result = data.results;
+            if(data.result) {
+                result = data.result;
                 $.each(result, function(){
                     commodities.push('<li class="commodity">' + this.commodity + '</li>');
                 });
-                $('#'+elementid).find('.results').empty();
+                $('#'+elementid).find('.result').empty();
                 text = $('<ul/>', {
                     'class': 'my-new-list',
                     html: commodities.join('')
                 });
             }
             else {
-                text = 'No results';
+                text = 'No result';
             }
             
            
-            $('#'+elementid).find('.results').append(text);
+            $('#'+elementid).find('.result').append(text);
 
         });
     },
     _getCommodity: function(value) {
        // var jqxhr = $.getJSON("http://eurogeosource.geodan.nl/OneGeologyServlet/JSONRetreiver?jsoncallback=?",
-       var url = '/2011/commodity.json?';
+       var url = 'http://tm-sr:8080/EuroGeoSource/Commodity?jsoncallback=?';
        var id = {commodity:value};
        $.getJSON(url,id, function(data,element) {           
-            $('#map').data('mapQuery').commodities(data.results);
+            $('#map').data('mapQuery').commodities(data.result);
        });
     }
     
