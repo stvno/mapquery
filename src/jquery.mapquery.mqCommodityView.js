@@ -114,7 +114,7 @@ $.widget("mapQuery.mqCommodityView", {
     _createGeometry: function(data,id) {
         var url;
         if(data.url) {
-            url = 'http://tm-sr:8080/EuroGeoSource/' + data.url;
+            url = 'http:/eurogeosource.geodan.nl/services/' + data.url;
             
             var layer = {
                 type: 'JSON',

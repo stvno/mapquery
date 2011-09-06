@@ -814,8 +814,25 @@ Cloudmade
                 options);
             var label = options.label || undefined;
             var url = options.url || undefined;
+
             return {
                 layer: new OpenLayers.Layer.OSM(label, url, o),
+                options: o
+            };
+        },
+        tms: function(options) {
+            var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
+                $.fn.mapQuery.defaults.layer.tms,
+                options);
+            var label = options.label || undefined;
+            var url = options.url || undefined;
+            var params = {
+                layername: o.layername,
+                type: 'png',
+                zoomOffset: -1
+            }
+            return {
+                layer: new OpenLayers.Layer.TMS(label, url, params),
                 options: o
             };
         },

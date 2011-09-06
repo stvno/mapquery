@@ -85,6 +85,12 @@ margin-top: -4px;
     margin:4px;
     border: solid 1px #ccc;
 }
+.commodity {
+    cursor: pointer;
+}
+ul.my-new-list {
+    list-style-type: disc;
+}
 #comm-search {
     padding: 10px;
 }
@@ -157,4 +163,47 @@ margin: 0;
 -moz-border-radius: 2px 2px 0px 0px;
 border: solid 1px #2E3436;
 
+}
+
+/**temp hack**/
+    #map-layers ul {
+list-style-type: none;
+padding: 0px;
+margin: 0px;
+}
+
+#map-layers li {
+background-image: url("images/folder-off.png");
+background-repeat: no-repeat;
+padding-left: 16px; 
+}
+
+#map-layers li.open{
+background-image: url("images/folder-on.png") !important;
+background-repeat: no-repeat;
+}
+
+.ul-closed {
+display: none;
+}
+
+#map-layers li.li-layer {
+background-image: url("images/layer-off.png");
+}
+#map-layers li.loading{
+background-image: url("images/spinner.gif");
+}
+#map-layers li {
+cursor: pointer;
+}
+
+#map-layers li.layer-on{
+background-image: url("images/layer-on.png");
+}
+
+#map-layers li .baselayer-on{
+background-image: url("images/base-on.png") !important;
+}
+#map-layers li .baselayer-off{
+background-image: url("images/base-off.png") !important;
 }

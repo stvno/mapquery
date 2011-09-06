@@ -18,7 +18,7 @@ $.widget("mapQuery.mqJsonSearch", {
         
         // The URL returning the search result as JSON
         // TODO should url have search parameter ??
-        url: 'http://tm-sr:8080/EuroGeoSource/Search?',
+        url: 'http://eurogeosource.geodan.nl/services/Search?commodity=',
         // the size of the search field
         size: 20,
         // the value of the search button
@@ -38,7 +38,7 @@ $.widget("mapQuery.mqJsonSearch", {
             search:self.options.search,
         }).appendTo(element);
 
-        element.addClass('ui-dialog ui-widget ui-widget-content ' +
+        element.addClass(' ui-widget ui-widget-content ' +
                               'ui-corner-all');
                               
         element.delegate('.searchbutton', 'click', function() {
@@ -89,7 +89,7 @@ $.widget("mapQuery.mqJsonSearch", {
     },
     _getCommodity: function(value) {
        // var jqxhr = $.getJSON("http://eurogeosource.geodan.nl/OneGeologyServlet/JSONRetreiver?jsoncallback=?",
-       var url = 'http://tm-sr:8080/EuroGeoSource/Commodity?jsoncallback=?';
+       var url = 'http://eurogeosource.geodan.nl/services/Commodity?jsoncallback=?';
        var id = {commodity:value};
        $.getJSON(url,id, function(data,element) {           
             $('#map').data('mapQuery').commodities(data.result);

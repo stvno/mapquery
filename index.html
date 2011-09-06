@@ -92,8 +92,28 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
 </div><!-- .ui-layout-north -->
 
 <div class="ui-layout-west"> 
-    <div id="com-toc"><div id="com-search"></div></div>
-    <div id="layer-toc"></div>    
+    <div id="com-toc" class="ui-widget ui-helper-clearfix"><div id="com-search"></div></div>
+    <div id="map-layers" class="ui-widget ui-helper-clearfix ">
+    <div class="ui-widget-content   ui-sortable">
+    <li id="onegeology" class="folder open">
+        <span class="folder">One Geology EU</span>
+        <ul class="ul-closed" style="display: block;">
+        <li class="li-layer layer-off">
+            <span id="layer6" class="layer-selector">One Geology North</span>
+        </li>
+        <li class="li-layer layer-off">
+            <span id="layer7" class="layer-selector">One Geology South</span>
+        </li>
+        <li class="li-layer layer-off">
+            <span id="layer8" class="layer-selector">One Geology West</span>
+        </li>
+        <li class="li-layer layer-off">
+            <span id="layer9" class="layer-selector">One Geology Center</span>
+        </li>
+    </ul>
+    </li>
+    </div>
+    </div>    
 </div><!-- .ui-layout-west -->
 
 <div id="mainmap" class="ui-layout-center">
