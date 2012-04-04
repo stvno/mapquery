@@ -820,22 +820,6 @@ Cloudmade
                 options: o
             };
         },
-        tms: function(options) {
-            var o = $.extend(true, {}, $.fn.mapQuery.defaults.layer.all,
-                $.fn.mapQuery.defaults.layer.tms,
-                options);
-            var label = options.label || undefined;
-            var url = options.url || undefined;
-            var params = {
-                layername: o.layername,
-                type: 'png',
-                zoomOffset: -1
-            }
-            return {
-                layer: new OpenLayers.Layer.TMS(label, url, params),
-                options: o
-            };
-        },
 /**
 ###*layer* `{type:tms}`
 _version added 0.1_
@@ -864,7 +848,8 @@ _version added 0.1_
             var url = options.url || undefined;
             var params = {
                 layername: o.layer,
-                type: o.format
+                type: o.format,
+                zoomOffset: -1 
             };
             return {
                 layer: new OpenLayers.Layer.TMS(label, url, params),

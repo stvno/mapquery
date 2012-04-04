@@ -88,6 +88,17 @@ margin-top: -4px;
 .commodity {
     cursor: pointer;
 }
+.mq-layerjsonmanager-attribution {
+	width: 50%;
+	padding-left: 10px;
+	font-size: 10px;
+}
+.mq-layerjsonmanager-metadata {
+	width: 50%;
+	float: right;
+	padding-right: 10px;
+	text-align: right;
+}
 ul.my-new-list {
     list-style-type: disc;
 }
@@ -207,3 +218,30 @@ background-image: url("images/base-on.png") !important;
 #map-layers li .baselayer-off{
 background-image: url("images/base-off.png") !important;
 }
+#mouseposition {
+	display: inline;
+	float:left;
+}
+
+#languagePicker {
+	position: absolute;
+	display: block;
+	top: 14px;
+	right: 4px;
+	float: right;
+	z-index: 10000;
+}
+
+/* General dropdown styles */       
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; z-index:10000; }
+.dropdown dd { position:relative; }
+/* DT styles for sliding doors */
+.dropdown dt a {background:#eeeeec url(images/arrow.png) no-repeat scroll right center;text-decoration:none;
+    display:block; padding-right:20px; border:1px solid #555753; width:100px;}
+.dropdown dt a span {cursor:pointer; display:block; padding:5px; text-decoration:none;}
+/* UL styles */
+.dropdown dd ul { background:#eeeeec none repeat scroll 0 0; display:none;
+    list-style:none; padding:5px 0px; position:absolute; 
+    left:0px; top:2px; width:auto; min-width:170px;}
+.dropdown span.value { display:none;}
+.dropdown dd ul li a { padding:5px; display:block;text-decoration:none;}

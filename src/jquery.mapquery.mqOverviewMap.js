@@ -78,7 +78,7 @@ $.widget("mapQuery.mqOverviewMap", {
             autoOpen: true,
             width: this.options.width,
             height: this.options.height,
-            title: this.options.title,
+            title: $.i18n.prop('txt_overviewmap'),
             position: this.options.position,
             resizeStop: function (event, ui) {
                 $('.olMap', this).width($(this).width());

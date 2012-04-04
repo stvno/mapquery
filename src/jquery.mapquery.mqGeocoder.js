@@ -7,7 +7,7 @@
 $.template('mqGeocoder',
     '<div class="mq-geocoder  ui-helper-clearfix ">'+
     '<span class="ui-helper-clearfix ">'+
-    '<form><input type="text" class="searchstring" size="${size}" value="amsterdam">'+
+    '<form><input type="text" class="searchstring" size="${size}" value="">'+
     '<input type="submit" class="searchbutton" value="${search}"></form>'+
     '</span></div>');
 
@@ -36,7 +36,7 @@ $.widget("mapQuery.mqGeocoder", {
 
         $.tmpl('mqGeocoder',{
             size:self.options.size,
-            search:self.options.search,
+            search:$.i18n.prop('btn_search')
         }).appendTo(element);
 
         element.delegate('.searchbutton', 'click', function() {

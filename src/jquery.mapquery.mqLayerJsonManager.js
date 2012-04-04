@@ -37,6 +37,10 @@ $.template('mqLayerJsonManagerElement',
                 '${errMsg}'+
             '{{/if}}'+
         '</div>'+
+        '<hr/>'+
+        '<div>'+
+        	'<span class="mq-layerjsonmanager-attribution">${attr}</span><span class="mq-layerjsonmanager-metadata">${metadata}</span>'+
+        '</div>'+
     '</div>'+
     '</div>');
 
@@ -55,7 +59,7 @@ $.template('mqLayerJsonManagerCommodity',
             '{{each(i, foo) group}}'+
                 '<li class="mq-group mq-group-${foo.title} open"><span class="${i}">${foo.title}</span>'+
                     '<ul class="mq-commodity-ul">{{each(j, bar) foo.data }}'+
-                    '<li class="mq-commodity mq-commodity-${bar.name} layer-on">${bar.name}</li>'+
+                    '<li class="mq-commodity mq-commodity-${bar.name} layer-on"><span class="${bar.code}">${bar.name}</span></li>'+
                        '{{/each}}</ul>'+
                 '</li>'+
             '{{/each}}'+
@@ -193,9 +197,9 @@ $.widget("mapQuery.mqLayerJsonManager", {
         var names=[];
         if(pie) names= this._pieClick(layer,group,name);
         else names= this._checkBoxes(layer,group,name);
-        var url = layer.options.url.split('&');
+        var url = layer.options.dataurl.split('&');
         
-        url = url[0]+"&group="+layer.options.data.group[group].title+"&name="+names;
+        url = url[0]+encodeURIComponent("group="+layer.options.data.group[group].code+";names="+names);
         layer.options.url=url;
         layer.olLayer.protocol.options.url=url;        
         //layer.olLayer.strategies[0].layer.protocol.url="/2011/geometry2.json";
@@ -216,7 +220,7 @@ $.widget("mapQuery.mqLayerJsonManager", {
                         $(this).toggleClass('li-layer').toggleClass('layer-on');
                     }
                     if($(this).hasClass('layer-on')) {
-                        names.push($(this).text());
+                        names.push($(this).find('span').attr('class'));
                     }
                 })
                
@@ -240,7 +244,7 @@ $.widget("mapQuery.mqLayerJsonManager", {
                     var text = $(this).text();
                     if(text==name) {
                         $(this).removeClass('li-layer').addClass('layer-on');
-                        names.push(text);
+                        names.push($(this).find('span').attr('class'));
                     }
                     else {
                         $(this).addClass('li-layer').removeClass('layer-on');
@@ -281,6 +285,7 @@ $.widget("mapQuery.mqLayerJsonManager", {
             }
             var group = layer.options.data.group;
             
+            
             var layerElement = $.tmpl('mqLayerJsonManagerCommodity',{
                 id: layer.id,
                 label: layer.label,
@@ -305,7 +310,9 @@ $.widget("mapQuery.mqLayerJsonManager", {
                 visible: layer.visible(),
                 imgUrl: url,
                 opacity: layer.visible()?layer.opacity():0,
-                errMsg: error
+                errMsg: error,
+                attr: layer.options.attribution,
+                metadata: layer.options.metadata
             })
                 // save layer layer in the DOM, so we can easily
                 // hide/show/delete the layer with live events
@@ -376,9 +383,9 @@ $.widget("mapQuery.mqLayerJsonManager", {
             var rvalue =[];
             var rlabel = [];
             var rurl = [];
-            $.each(data.group[index].data, function(i,v){
+             $.each(data.group[index].data, function(i,v){
                 rlabel[i] = v.name;
-                rvalue[i] = v.percentage;
+                rvalue[i] = v.values[0].value;
                // rurl[i] = '#'+widget.zoomTo(data.group[index].title,v.name); 
             })
             var pie = r.g.piechart(60,70,50, rvalue, {legend:rlabel});

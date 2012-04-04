@@ -54,7 +54,7 @@ $.widget("mapQuery.mqCommodityView", {
     },
     
     _commodityAdded: function(widget, commodity) {
-      /*  var id = 'com-dialog-'+commodity.id;
+       /* var id = 'com-dialog-'+commodity.id;
         
         $.tmpl('mqCommodityViewLink',{
             id: id}).appendTo(widget.element);
@@ -66,8 +66,8 @@ $.widget("mapQuery.mqCommodityView", {
         var dialog =  $('#'+id)
             .html(html)
             .dialog({ title: commodity.options.name});
-        */
-      //  this._createPie(commodity.options,commodity.id,widget);
+        
+        this._createPie(commodity.options,commodity.id,widget);*/
         this._createGeometry(commodity.options,commodity.id);
     },
     
@@ -80,7 +80,7 @@ $.widget("mapQuery.mqCommodityView", {
             var rurl = [];
             $.each(data.group[index].data, function(i,v){
                 rlabel[i] = v.name;
-                rvalue[i] = v.percentage;
+                rvalue[i] = v.values[0].value;
                // rurl[i] = '#'+widget.zoomTo(data.group[index].title,v.name); 
             })
             var pie = r.g.piechart(60,70,50, rvalue, {legend:rlabel});
@@ -113,21 +113,22 @@ $.widget("mapQuery.mqCommodityView", {
     },
     _createGeometry: function(data,id) {
         var url;
-        if(data.url) {
-            url = 'http:/eurogeosource.geodan.nl/services/' + data.url;
-            
+        
+            url = '/cgi-bin/proxy.cgi?url='+ encodeURIComponent('http://mularroya15.cps.unizar.es:8080/DataProcessingService/services?Service=WPS&Request=Execute&Version=1.0.0&RawDataOutput=Output&Identifier=GetGeometryForResource&DataInputs=language='+$.i18n.prop('txt_language')+';resource='+data.code+';');
+           // url = '/2012/services.json';
             var layer = {
                 type: 'JSON',
                 url: url,
                 projection: 'EPSG:4326',
-                
+                xy: false,
                 //url: 'http://localhost:5984/ethiopia_reservate/_design/geo/_list/geojson/all?type=geojson',
                 label: data.name,
-                data: data
+                data: data,
+                dataurl: url
             };
             var map = this.options.map;
             $(map).data('mapQuery').layers(layer);
-        }
+        
     },
     _onCommodityAdd: function(evt, commodity) {
         evt.data.widget._commodityAdded(evt.data.widget,commodity);

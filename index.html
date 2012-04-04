@@ -15,14 +15,15 @@
 <link rel="stylesheet" type="text/css" href="css/layout.css" />
 <link rel="stylesheet" type="text/css" href="css/mapquery.css" />
 <link rel="stylesheet" type="text/css" href="css/egs.css" />
-<link rel="stylesheet" href="lib/slickgrid/slick.grid.css" type="text/css" media="screen" charset="utf-8" /> 
+<!--<link rel="stylesheet" href="lib/slickgrid/slick.grid.css" type="text/css" media="screen" charset="utf-8" /> -->
 <!-- css -->
 
 <!-- jQuery -->
-<script src="lib/jquery/jquery-1.4.4.js" type="text/javascript"></script>
+<script src="lib/jquery/jquery-1.6.2.js" type="text/javascript"></script>
 <script src="lib/jquery/jquery.tmpl.js" type="text/javascript"></script>
 <script src="lib/jquery/ui/jquery-ui.js" type="text/javascript"></script>
 
+<script src="lib/jquery/jquery.i18n.properties-min.js" type="text/javascript"></script>
 <script type="text/javascript" src="lib/jquery/jquery.layout.min-1.2.0.js"></script>
 <!-- jQuery -->
 
@@ -44,12 +45,13 @@
 <script type="text/javascript" src="src/jquery.mapquery.mqJsonSearch.js"></script>
 <script type="text/javascript" src="src/jquery.mapquery.mqCommodityView.js"></script>
 <script type="text/javascript" src="src/jquery.mapquery.mqPopup.js"></script>
+<script type="text/javascript" src="src/jquery.widget.languagePicker.js"></script>
 
 <!-- MapQuery -->
 
-<!--Slickgrid-->
+<!--Slickgrid--><!--
 <script language="JavaScript" src="lib/slickgrid/lib/jquery.event.drag-2.0.min.js"></script> 
-<script type="text/javascript" src="lib/slickgrid/slick.grid.js"></script>
+<script type="text/javascript" src="lib/slickgrid/slick.grid.js"></script>-->
 <!--Slickgrid-->
 
 <!-- eigen scripts -->
@@ -76,18 +78,49 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
 
 </head>
 <body>
+	<div id="languagePicker"></div>
 <div class="ui-layout-north edugis-heading">
     <div class="heading-top">
-    <a href="."><img src="css/images/logo.png"/></a><div id="geo-search"></div><div style="float:right;margin-top:4px;margin-right:4px;"><a href="http://europa.eu/"><img src="css/images/autopa.gif"></a></div>
+    <a href="."><img src="css/images/logo.png"/></a><div id="geo-search"></div><div style="float:right;margin-top:4px;margin-right:4px;"></div>
     </div>
     <div class="heading-bottom">
-        <div class="h-b-west">Data sources</div>
+        <div class="h-b-west">
+        	<script type="text/javascript" language="JavaScript">     
+        jQuery(document).ready(function() {        	
+        	$('.h-b-west').append(jQuery.i18n.prop('txt_datasource'))        	
+        	})</script>
+        	</div>
         <span id="close-west" class="ui-layout-button-close"></span>
         <span id="open-west" class="ui-layout-button-close"></span>
-        <span class="h-b-middle"><span id="savevectorlayer" title="save drawing">save</span> | <span id="loadvectorlayer" title="open drawing from file">open</span> | <span onClick="alert('Help is coming')">help</span> | <span id="permalinkbuilder" title="permalink for this extent">link</span></span>
+        <span class="h-b-middle"><span id="savevectorlayer" title="save drawing">
+		<script type="text/javascript" language="JavaScript">     
+        jQuery(document).ready(function() {        	
+        	$('#savevectorlayer').append(jQuery.i18n.prop('txt_save'))        	
+        	})</script>
+        	</span> | <span id="loadvectorlayer" title="open drawing from file">
+        		<script type="text/javascript" language="JavaScript">     
+        jQuery(document).ready(function() {        	
+        	$('#loadvectorlayer').append(jQuery.i18n.prop('txt_open'))        	
+        	})</script>
+        	</span> | <span id="helpspan" onClick="alert('Help is coming')">
+			<script type="text/javascript" language="JavaScript">     
+        jQuery(document).ready(function() {        	
+        	$('#helpspan').append(jQuery.i18n.prop('txt_help'))        	
+        	})</script>
+        	</span> | <span id="permalinkbuilder" title="permalink for this extent">
+			<script type="text/javascript" language="JavaScript">     
+        jQuery(document).ready(function() {        	
+        	$('#permalinkbuilder').append(jQuery.i18n.prop('txt_link'))        	
+        	})</script>
+			</span></span>
         <span id="close-east" class="ui-layout-button-close"></span>
         <span id="open-east" class="ui-layout-button-close"></span>
-        <div class="h-b-east">Map data</div>
+        <div class="h-b-east">
+		<script type="text/javascript" language="JavaScript">     
+        jQuery(document).ready(function() {        	
+        	$('.h-b-east').append(jQuery.i18n.prop('txt_mapdata'))        	
+        	})</script>
+		</div>
     </div>
 </div><!-- .ui-layout-north -->
 
@@ -112,6 +145,106 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
         </li>
     </ul>
     </li>
+     <li id="spba" class="folder open">
+        <span class="folder">Southern Permian Basin Area</span>
+    	<ul class="ul-closed" style="display: block;">
+    		<li class="li-layer layer-off"><span id="layer10" class="layer-selector">1.2_bathymetry_topo</span></li>
+<li class="li-layer layer-off"><span id="layer11" class="layer-selector">1.3_qu_s</span></li>
+<li class="li-layer layer-off"><span id="layer12" class="layer-selector">1.4_gas_oil_pipelines</span></li>
+<li class="li-layer layer-off"><span id="layer13" class="layer-selector">1.6_seismic_boreholes</span></li>
+<li class="li-layer layer-off"><span id="layer14" class="layer-selector">10.11_ju_pres_day</span></li>
+<li class="li-layer layer-off"><span id="layer15" class="layer-selector">10.12_lju_Source_Rock</span></li>
+<li class="li-layer layer-off"><span id="layer16" class="layer-selector">10.13_uju_Source_Rock</span></li>
+<li class="li-layer layer-off"><span id="layer17" class="layer-selector">10.2_lju_d</span></li>
+<li class="li-layer layer-off"><span id="layer18" class="layer-selector">10.3_lju_t</span></li>
+<li class="li-layer layer-off"><span id="layer19" class="layer-selector">10.4_mju_d</span></li>
+<li class="li-layer layer-off"><span id="layer20" class="layer-selector">10.5_mju_t</span></li>
+<li class="li-layer layer-off"><span id="layer21" class="layer-selector">10.6_uju_d</span></li>
+<li class="li-layer layer-off"><span id="layer22" class="layer-selector">10.7_uju_t</span></li>
+<li class="li-layer layer-off"><span id="layer23" class="layer-selector">10-8EarlyBathonian</span></li>
+<li class="li-layer layer-off"><span id="layer24" class="layer-selector">10-8EarlyToarcian</span></li>
+<li class="li-layer layer-off"><span id="layer25" class="layer-selector">10-8Hettangian</span></li>
+<li class="li-layer layer-off"><span id="layer26" class="layer-selector">10-8Kimmeridgian</span></li>
+<li class="li-layer layer-off"><span id="layer27" class="layer-selector">10-8MidCallovian</span></li>
+<li class="li-layer layer-off"><span id="layer28" class="layer-selector">10-8MidOxfordian</span></li>
+<li class="li-layer layer-off"><span id="layer29" class="layer-selector">11.2_lcr_d</span></li>
+<li class="li-layer layer-off"><span id="layer30" class="layer-selector">11.22_ck_pressure</span></li>
+<li class="li-layer layer-off"><span id="layer31" class="layer-selector">11.24_cr_pres_day</span></li>
+<li class="li-layer layer-off"><span id="layer32" class="layer-selector">11.3_ucr_d</span></li>
+<li class="li-layer layer-off"><span id="layer33" class="layer-selector">11.4_lcr_t</span></li>
+<li class="li-layer layer-off"><span id="layer34" class="layer-selector">11.5_lcr_s</span></li>
+<li class="li-layer layer-off"><span id="layer35" class="layer-selector">11.6_ucr_t</span></li>
+<li class="li-layer layer-off"><span id="layer36" class="layer-selector">11.7_ck_tert_s</span></li>
+<li class="li-layer layer-off"><span id="layer37" class="layer-selector">12.1_tert_d</span></li>
+<li class="li-layer layer-off"><span id="layer38" class="layer-selector">12.14_qu_d</span></li>
+<li class="li-layer layer-off"><span id="layer39" class="layer-selector">13.10_early_ca_east_midland</span></li>
+<li class="li-layer layer-off"><span id="layer40" class="layer-selector">13.14_early_ca_clevel_basin</span></li>
+<li class="li-layer layer-off"><span id="layer41" class="layer-selector">13.18_early_ca_pomerania</span></li>
+<li class="li-layer layer-off"><span id="layer42" class="layer-selector">13.1a_overview_paleoz_prov</span></li>
+<li class="li-layer layer-off"><span id="layer43" class="layer-selector">13.22_early_ca_foresudetic</span></li>
+<li class="li-layer layer-off"><span id="layer44" class="layer-selector">13.26_early_ca_lublin</span></li>
+<li class="li-layer layer-off"><span id="layer45" class="layer-selector">13.30_westph_dutch_german</span></li>
+<li class="li-layer layer-off"><span id="layer46" class="layer-selector">13.33_ze_pomerania</span></li>
+<li class="li-layer layer-off"><span id="layer47" class="layer-selector">13.36_ze_foresudetic</span></li>
+<li class="li-layer layer-off"><span id="layer48" class="layer-selector">13.4_pre_dev_baltic</span></li>
+<li class="li-layer layer-off"><span id="layer49" class="layer-selector">13.40_ju_weald</span></li>
+<li class="li-layer layer-off"><span id="layer50" class="layer-selector">13.44_ju_central_graben</span></li>
+<li class="li-layer layer-off"><span id="layer51" class="layer-selector">13.50_ju_B14basin_WNbasin</span></li>
+<li class="li-layer layer-off"><span id="layer52" class="layer-selector">13.54_ju_Low_Sax_basin</span></li>
+<li class="li-layer layer-off"><span id="layer53" class="layer-selector">13.58_ju_Tail_Endgraben</span></li>
+<li class="li-layer layer-off"><span id="layer54" class="layer-selector">13.7_early_ca_nweurope</span></li>
+<li class="li-layer layer-off"><span id="layer55" class="layer-selector">2.19_gravity_bouguer</span></li>
+<li class="li-layer layer-off"><span id="layer56" class="layer-selector">2.2_moho_disc_d</span></li>
+<li class="li-layer layer-off"><span id="layer57" class="layer-selector">2.20_gravity_free_air</span></li>
+<li class="li-layer layer-off"><span id="layer58" class="layer-selector">2.21_gravity_res1</span></li>
+<li class="li-layer layer-off"><span id="layer59" class="layer-selector">2.22_gravity_res2</span></li>
+<li class="li-layer layer-off"><span id="layer60" class="layer-selector">2.23_magn_field</span></li>
+<li class="li-layer layer-off"><span id="layer61" class="layer-selector">2.24_magn_field_reduced</span></li>
+<li class="li-layer layer-off"><span id="layer62" class="layer-selector">2.25_magn_field_pseudo</span></li>
+<li class="li-layer layer-off"><span id="layer63" class="layer-selector">2.26_geoth_heatflow</span></li>
+<li class="li-layer layer-off"><span id="layer64" class="layer-selector">2.27_geoth_temp_level_1000m</span></li>
+<li class="li-layer layer-off"><span id="layer65" class="layer-selector">2.28_geoth_temp_level_2000m</span></li>
+<li class="li-layer layer-off"><span id="layer66" class="layer-selector">2.29_geoth_temp_level_3000m</span></li>
+<li class="li-layer layer-off"><span id="layer67" class="layer-selector">3.11_ze_tect</span></li>
+<li class="li-layer layer-off"><span id="layer68" class="layer-selector">3.13a_ltr_tect</span></li>
+<li class="li-layer layer-off"><span id="layer69" class="layer-selector">3.13b_mtr_tect</span></li>
+<li class="li-layer layer-off"><span id="layer70" class="layer-selector">3.15_utr_tect</span></li>
+<li class="li-layer layer-off"><span id="layer71" class="layer-selector">3.17_lju_tect</span></li>
+<li class="li-layer layer-off"><span id="layer72" class="layer-selector">3.19a_uju_lcr_kim_tect</span></li>
+<li class="li-layer layer-off"><span id="layer73" class="layer-selector">3.19b_uju_lcr_haut_tect</span></li>
+<li class="li-layer layer-off"><span id="layer74" class="layer-selector">3.21_ucr_tect</span></li>
+<li class="li-layer layer-off"><span id="layer75" class="layer-selector">3.25_cen_palaeo_tect</span></li>
+<li class="li-layer layer-off"><span id="layer76" class="layer-selector">3.26_cen_mio_tect</span></li>
+<li class="li-layer layer-off"><span id="layer77" class="layer-selector">3.3_laurussia</span></li>
+<li class="li-layer layer-off"><span id="layer78" class="layer-selector">3.30_salt_tect</span></li>
+<li class="li-layer layer-off"><span id="layer79" class="layer-selector">3.31_regional_seismic</span></li>
+<li class="li-layer layer-off"><span id="layer80" class="layer-selector">3.5_pangea</span></li>
+<li class="li-layer layer-off"><span id="layer81" class="layer-selector">4.18_cambrian_s</span></li>
+<li class="li-layer layer-off"><span id="layer82" class="layer-selector">4.2_boreholes_outcrop_pre_devonian</span></li>
+<li class="li-layer layer-off"><span id="layer83" class="layer-selector">4.3_pre_devonian_d</span></li>
+<li class="li-layer layer-off"><span id="layer84" class="layer-selector">5.2_devonian_rocks</span></li>
+<li class="li-layer layer-off"><span id="layer85" class="layer-selector">6.18_namur_blackshale_s</span></li>
+<li class="li-layer layer-off"><span id="layer86" class="layer-selector">6.19_ca_maturity</span></li>
+<li class="li-layer layer-off"><span id="layer87" class="layer-selector">6.2_ca_tect</span></li>
+<li class="li-layer layer-off"><span id="layer88" class="layer-selector">6.4_perm_s</span></li>
+<li class="li-layer layer-off"><span id="layer89" class="layer-selector">6.20_ca_res</span></li>
+<li class="li-layer layer-off"><span id="layer90" class="layer-selector">7.2_ro_d</span></li>
+<li class="li-layer layer-off"><span id="layer91" class="layer-selector">7.20_lsl_Res_Fac</span></li>
+<li class="li-layer layer-off"><span id="layer92" class="layer-selector">7.21_usl_Res_Fac</span></li>
+<li class="li-layer layer-off"><span id="layer93" class="layer-selector">7.3_ro_t</span></li>
+<li class="li-layer layer-off"><span id="layer94" class="layer-selector">8.18a_lze_stassfurt_Res_Fac</span></li>
+<li class="li-layer layer-off"><span id="layer95" class="layer-selector">8.2_ze_d</span></li>
+<li class="li-layer layer-off"><span id="layer96" class="layer-selector">8.3_ze_t</span></li>
+<li class="li-layer layer-off"><span id="layer97" class="layer-selector">9.11_ltr_pres_day</span></li>
+<li class="li-layer layer-off"><span id="layer98" class="layer-selector">9.2_ltr_d</span></li>
+<li class="li-layer layer-off"><span id="layer99" class="layer-selector">9.3_ltr_t</span></li>
+<li class="li-layer layer-off"><span id="layer100" class="layer-selector">9.4_mtr_d</span></li>
+<li class="li-layer layer-off"><span id="layer101" class="layer-selector">9.5_mtr_t</span></li>
+<li class="li-layer layer-off"><span id="layer102" class="layer-selector">9.6_utr_d</span></li>
+<li class="li-layer layer-off"><span id="layer103" class="layer-selector">9.7_utr_t</span></li>
+
+		</ul>
+    </li>
     </div>
     </div>    
 </div><!-- .ui-layout-west -->
@@ -135,6 +268,7 @@ var proxy_prefix="/cgi-bin/proxy.cgi?url=";
     <div id="mouseposition"></div>
     <div id="scale"></div>
     <div id="help"></div>
+    <a href="http://europa.eu/" style="float:right;"><img height="16px" src="css/images/autopa.gif"></a>
 </div><!-- .ui-layout-south -->
 
 </body>
