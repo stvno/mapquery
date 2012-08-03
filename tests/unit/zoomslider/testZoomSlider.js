@@ -7,11 +7,7 @@ module('zoomslider');
 test("ZoomSlider is shown", 1, function() {
     var map = $('#map1').mapQuery({
         layers:[{
-<<<<<<< HEAD
-            type:'osm' 
-=======
             type:'osm'
->>>>>>> upstream/master
         }]
     });
     var mq = map.data('mapQuery');
@@ -23,17 +19,6 @@ test("ZoomSlider is shown", 1, function() {
 test("ZoomSlider works", 2, function() {
     var map = $('#map1').mapQuery({
         layers:[{
-<<<<<<< HEAD
-            type:'osm' 
-        }]
-    });
-    var mq = map.data('mapQuery');
-    var goto = mq.goto();
-    $(".mq-zoomslider-slider").slider('value',19-4);
-    goto = mq.goto();
-    equals(goto.zoom, 4, 'Zoomed in to 4 using slider');
-    mq.goto({zoom:3});
-=======
             type:'osm'
         }]
     });
@@ -43,7 +28,6 @@ test("ZoomSlider works", 2, function() {
     center = mq.center();
     equals(center.zoom, 4, 'Zoomed in to 4 using slider');
     mq.center({zoom:3});
->>>>>>> upstream/master
     equals($(".mq-zoomslider-slider").slider('value'), 19-3, 'Zoomed out to 3, slider is 3');
 });
 

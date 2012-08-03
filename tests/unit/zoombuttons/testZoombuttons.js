@@ -29,17 +29,10 @@ test("ZoomButtons work", 2, function() {
     center = mq.center();
     equals(center.zoom, 2, 'Zoomed in');
     $(".mq-zoombuttons-minus").trigger('click');
-<<<<<<< HEAD
-	goto = mq.goto();
-    equals(goto.zoom, 1, 'Zoomed out');
-    
-   
-=======
 	center = mq.center();
     equals(center.zoom, 1, 'Zoomed out');
 
 
->>>>>>> upstream/master
 });
 
 })(jQuery);
