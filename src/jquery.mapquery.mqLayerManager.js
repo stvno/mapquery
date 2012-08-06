@@ -136,7 +136,7 @@ $.widget("mapQuery.mqLayerManager", {
             var element = checkbox.parents('.mq-layermanager-element');
             var layer = element.data('layer');
             var self = element.data('self');
-            self._visible(layer,checkbox.attr('checked'));
+            self._visible(layer,checkbox.is(':checked'));
          });
 
         element.delegate('.ui-icon-closethick', 'click', function() {
@@ -145,11 +145,11 @@ $.widget("mapQuery.mqLayerManager", {
         });
 
         //binding events
-        map.bind("mqAddLayer",
+        map.bind("addlayer",
             {widget:self,control:lmElement},
             self._onLayerAdd);
 
-        map.bind("mqRemoveLayer",
+        map.bind("removelayer",
             {widget:self,control:lmElement},
             self._onLayerRemove);
 
@@ -303,7 +303,7 @@ $.widget("mapQuery.mqLayerManager", {
 
         //update legend image
         layerElement.find('.mq-layermanager-element-legend img').css(
-            {visibility:layer.visible()?true:'hidden'});
+            {visibility:layer.visible()?'visible':'hidden'});
     },
 
     _layerOpacity: function(widget, layer) {
@@ -315,7 +315,7 @@ $.widget("mapQuery.mqLayerManager", {
         //update legend image
         layerElement.find(
             '.mq-layermanager-element-legend img').css(
-            {opacity:layer.opacity()});
+            {opacity:layer.opacity(),visibility:layer.visible()?'visible':'hidden'});
     },
 
     _moveEnd: function (widget,lmElement,map) {
@@ -330,23 +330,16 @@ $.widget("mapQuery.mqLayerManager", {
         evt.data.widget._layerAdded(evt.data.control,layer);
     },
 
-    _onLayerRemove: function(evt, id) {
-        evt.data.widget._layerRemoved(evt.data.control,id);
+    _onLayerRemove: function(evt, layer) {
+        evt.data.widget._layerRemoved(evt.data.control,layer.id);
     },
 
-    _onLayerChange: function(evt, data) {
-        var layer;
-        //since we don't know which layer we get we've to loop through
-        //the openlayers.layer.ids to find the correct one
-        $.each(evt.data.map.layers(), function(){
-           if(this.olLayer.id == data.layer.id) {layer=this;}
-        });
-        //(name, order, opacity, params, visibility or attribution)
-         switch(data.property) {
+    _onLayerChange: function(evt, layer, property) {
+         switch(property) {
             case 'opacity':
                 evt.data.widget._layerOpacity(evt.data.widget,layer);
             break;
-            case 'order':
+            case 'position':
                 evt.data.widget._layerPosition(evt.data.widget,layer);
             break;
             case 'visibility':
